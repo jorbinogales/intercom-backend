@@ -23,7 +23,7 @@ export class AchievementController {
     @Post('')
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
-    @ApiOperation({ summary: 'Create a achievement' })
+    @ApiOperation({ summary: 'Create a achievement [ONLY DEV]' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
@@ -42,16 +42,29 @@ export class AchievementController {
         return await this.achievementService.store(CreateAchievementDto, file, user);
     }
 
-    /* GET ACHIEVEMENT [ ALL ] */
+    /* GET ALL ACHIEVEMENT CREATED [ ONLY DEV ] */
+    @Get('')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Get all achievements created [ONLY DEV]' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Developer)
+    @ApiOperation({ summary: 'Get all achievement created [ONLY DEV]' })
+    async index(@GetUser() user: UserEntity): Promise<AchievementEntity[]>{
+        return await this.achievementService.index(user);
+    }
+
+    /* GET A ACHIEVEMENT WIDTH ID [ ALL ] */
     @Get(':id')
-    @ApiOperation({ summary: 'get a achievement' })
+    @ApiOperation({ summary: 'Get a achievement with id [ALL]' })
     async get(@Param('id') id:string): Promise<AchievementEntity>{
         return await this.achievementService.get(id)
     }
 
      /* GET ACHIEVEMET FROM GAME [ ALL ] */
     @Get('game/:id')
-    @ApiOperation({ summary: 'Get all achievement from game' })
+    @ApiOperation({ summary: 'Get all achievement from game [ALL]' })
     async getFromGame(@Param('id') id:string): Promise<AchievementEntity[]>{
         return await this.achievementService.getFromGame(id)
     }
@@ -60,7 +73,7 @@ export class AchievementController {
     @Patch(':id')
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
-    @ApiOperation({ summary: 'Update a achievement' })
+    @ApiOperation({ summary: 'Update a achievement [ONLY DEV]' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
@@ -84,7 +97,7 @@ export class AchievementController {
     @Delete(':id')
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
-    @ApiOperation({ summary: 'Delete a achievement' })
+    @ApiOperation({ summary: 'Delete a achievement [ONLY DEV]' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)

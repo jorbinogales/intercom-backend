@@ -1,18 +1,19 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
-import { ApiBasicAuth, ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBasicAuth, ApiBearerAuth, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/createGame.dto';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
-import { Roles } from 'src/auth/enum/roles';
-import { hasRoles } from 'src/auth/decorators/role.decorator';
+import { RolesGuard } from './../auth/guards/role.guard';
+import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
+import { Roles } from './../auth/enum/roles';
+import { hasRoles } from './../auth/decorators/role.decorator';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
+import { PictureFileConfig } from './../utils/config/uploadfile.config';
 import { GameService } from './game.service';
-import { GetUser } from 'src/auth/decorators/user.decorator';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { GetUser } from './../auth/decorators/user.decorator';
+import { UserEntity } from './../user/entities/user.entity';
 import { GameEntity } from './entities/game.entity';
 import { UpdateGameDto } from './dto/updateGame.dto';
-import { uploadFile } from 'src/utils/files/UploadFile.decorator';
+import { uploadFile } from './../utils/files/UploadFile.decorator';
+import { ApiFile } from './../utils/decorators/apifile.decorator';
 
 @ApiTags('Game')
 @Controller('game')
@@ -24,21 +25,20 @@ export class GameController {
     @Post('')
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
+    @ApiFile('picture')
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: 'Create a game [ONLY DEV]' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     @UseInterceptors(FileFieldsInterceptor([
-        { name: 'picture', maxCount: 1 },
-        { name: 'icon', maxCount: 1 },
-    ],
-        PictureFileConfig
+            { name: 'picture', maxCount: 1 },
+            { name: 'icon', maxCount: 1 },
+        ],
     ))
-    @uploadFile('picture', 'icon')
     async store(
         @Body() CreateGameDto: CreateGameDto,
-        @UploadedFiles() files: { picture: Express.Multer.File[], icon: Express.Multer.File[] },
+        @UploadedFiles() files: Express.Multer.File,
         @GetUser() user: UserEntity
     ): Promise<any>{
         console.log(files);

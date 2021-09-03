@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBasicAuth, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { hasRoles } from 'src/auth/decorators/role.decorator';
 import { GetUser } from 'src/auth/decorators/user.decorator';
@@ -7,6 +7,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { createGameUserDto } from './dto/createGameUser.dto';
+import { GameUserEntity } from './entities/gameUser.entity';
 import { GameUserService } from './game-user.service';
 
 @ApiTags('Game User')
@@ -27,6 +28,18 @@ export class GameUserController {
         @GetUser() user: UserEntity,
     ): Promise<any> {
         return await this.gameUserService.store(createGameUserDto, user);
+    }
+
+    /* GET LAST PLAYERS FROM DEV [ONLY DEV] */
+    @Get('')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'GET LAST PLAYERS FROM DEV [ONLY DEV]' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Developer)
+    async index(@GetUser() user: UserEntity): Promise<GameUserEntity[]>{
+        return await this.gameUserService.index(user);
     }
 
     

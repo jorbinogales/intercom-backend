@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import { AuthModule } from 'src/auth/auth.module';
-import { GatewayOptions } from 'src/utils/gateway/gateway';
+import { AuthModule } from './../auth/auth.module';
+import { GatewayOptions } from './../utils/gateway/gateway';
 import { CategoryController } from './category.controller';
 import { CategoryService } from './category.service';
 

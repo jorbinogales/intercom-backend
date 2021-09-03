@@ -1,9 +1,7 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
-import { CategoryService } from 'src/category/category.service';
-import { CategoryEntity } from 'src/category/entities/category.entity';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { CategoryService } from './../category/category.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { CreateGameDto } from './dto/createGame.dto';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { GameEntity } from './entities/game.entity';
@@ -42,10 +40,9 @@ export class GameService {
     async update(
         updateGameDto: UpdateGameDto,
         user: UserEntity,
-        file: any,
         id: string): Promise<any> {
         const game = await this.check(id, user);
-        return await this.microDev.send({ cmd: 'game_update' }, { updateGameDto, user, file, game }).toPromise()
+        return await this.microDev.send({ cmd: 'game_update' }, { updateGameDto, user, game }).toPromise()
     }
 
     /* DELETE A GAME */

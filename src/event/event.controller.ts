@@ -31,6 +31,18 @@ export class EventController {
         return await this.eventService.store(createEventDto, user);
     }
 
+    /* GET ALL EVENTS CREATED [ ONLY DEV ] */
+    @Get('')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Get all events created  [ ONLY DEV ]' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Developer)
+    async index(@GetUser() user: UserEntity): Promise<EventEntity[]>{
+        return await this.eventService.index(user);
+    }
+
     /* GET A EVENT WITH ID [ALL] */
     @Get(':id')
     @ApiOperation({ summary: 'Get a event with id [ ALL ]' })

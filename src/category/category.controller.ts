@@ -1,11 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { ApiBasicAuth, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { hasRoles } from 'src/auth/decorators/role.decorator';
-import { GetUser } from 'src/auth/decorators/user.decorator';
-import { Roles } from 'src/auth/enum/roles';
-import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { hasRoles } from '../auth/decorators/role.decorator';
+import { GetUser } from '../auth/decorators/user.decorator';
+import { Roles } from '../auth/enum/roles';
+import { JwtAuthGuard } from '../auth/guards/jwtAuth.guard';
+import { RolesGuard } from '../auth/guards/role.guard';
+import { UserEntity } from '../user/entities/user.entity';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { UpdateCategoryDto } from './dto/updateCategory.dto';
@@ -31,8 +31,6 @@ export class CategoryController {
 
     /* GET ALL CATEGORY [ ALL ] */
     @Get('')
-    @ApiBasicAuth('XYZ')
-    @ApiBearerAuth()
     @ApiOperation({ summary: 'Get all  category [ALL]' })
     async index(): Promise<any[]>{
         return await this.categoryService.index();
@@ -41,8 +39,6 @@ export class CategoryController {
 
     /* GET ONE CATEGORY [ ALL ] */
     @Get(':id')
-    @ApiBasicAuth('XYZ')
-    @ApiBearerAuth()
     @ApiOperation({ summary: 'Get a category [ALL]' })
     async get(
         @Param('id') id: string,

@@ -29,7 +29,12 @@ export class AchievementService {
         return null;
     }
 
-    /* GET ACHIEVEMENT */
+    /* GET ALL ACHIEVEMENT CREATED */
+    async index(user: UserEntity): Promise<AchievementEntity[]>{
+        return await this.microDev.send({ cmd: 'achievement_index' }, { user }).toPromise();
+    }
+
+    /* GET A ACHIEVEMENT WITH ID */
     async get(
         id: string
     ): Promise<AchievementEntity>{

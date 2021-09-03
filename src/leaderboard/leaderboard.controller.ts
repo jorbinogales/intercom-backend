@@ -39,6 +39,18 @@ export class LeaderboardController {
         return await this.leaderService.store(createLeaderBoarDto, user, file);
     }
 
+    /* GET ALL LEADERBOARDS CREATED [ONLY DEV]*/
+    @Get('')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Get all leaderboards created [ONLY DEV]' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Developer)
+    async index(@GetUser() user: UserEntity): Promise<LeaderBoardEntity[]>{
+        return await this.leaderService.index(user);
+    }
+
     /* GET A LEADERBOARD [ ALL  ] */
     @Get(':id')
     @ApiOperation({ summary: 'Get a leaderboard with id [ALL]' })

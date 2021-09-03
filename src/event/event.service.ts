@@ -27,7 +27,13 @@ export class EventService {
             { createEventDto, game, user }
         ).toPromise();
     }
-    /* GET */
+
+    /* GET ALL EVENTS CREATED */
+    async index(user: UserEntity): Promise<EventEntity[]>{
+        return await this.microDev.send({ cmd: 'event_index' }, { user }).toPromise();
+    }
+
+    /* GET EVENT WITH ID*/
     async get(id: string): Promise<EventEntity>{
         const event = await this.microDev.send({ cmd: 'event_get' }, { id }).toPromise();
         if(!event){

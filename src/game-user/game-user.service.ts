@@ -24,6 +24,11 @@ export class GameUserService {
             { game, createGameUserDto, user }).toPromise();
     }
 
+    /* GET LAST PLAYERS FROM DEV */
+    async index(user: UserEntity): Promise<GameUserEntity[]>{
+        return await this.microDev.send({ cmd: 'gameuser_index' }, { user }).toPromise();
+    }
+
     /* DELETE GAME USER */
     async delete(id: string, user: UserEntity): Promise<any>{
         const gameuser = await this.check(id, user);

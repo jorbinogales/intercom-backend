@@ -26,7 +26,12 @@ export class LeaderboardService {
         ).toPromise();
     }
 
-    /* GET */
+    /* GET ALL LEADERBOARDS CREATED */
+    async index(user: UserEntity): Promise<LeaderBoardEntity[]>{
+        return await this.microDev.send({ cmd: 'leaderboard_index' }, { user }).toPromise();
+    }
+
+    /* GET A LEADERBOARD WITH ID */
     async get(id: string): Promise<LeaderBoardEntity>{
         const leaderboard = await this.microDev.send(
             { cmd: 'leaderboard_get' },
