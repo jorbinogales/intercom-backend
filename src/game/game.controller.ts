@@ -12,8 +12,8 @@ import { GetUser } from './../auth/decorators/user.decorator';
 import { UserEntity } from './../user/entities/user.entity';
 import { GameEntity } from './entities/game.entity';
 import { UpdateGameDto } from './dto/updateGame.dto';
-import { uploadFile } from './../utils/files/UploadFile.decorator';
-import { ApiFile } from './../utils/decorators/apifile.decorator';
+import { UploadFileNestjs } from '../utils/decorators/UploadFile.decorator';
+
 
 @ApiTags('Game')
 @Controller('game')
@@ -25,24 +25,27 @@ export class GameController {
     @Post('')
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
-    @ApiFile('picture')
     @ApiConsumes('multipart/form-data')
     @ApiOperation({ summary: 'Create a game [ONLY DEV]' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
-    @UseInterceptors(FileFieldsInterceptor([
-            { name: 'picture', maxCount: 1 },
-            { name: 'icon', maxCount: 1 },
+    @UseInterceptors(FileFieldsInterceptor(
+        [
+            { name: 'image' },
+            { name: 'icon'}
         ],
+        PictureFileConfig,
     ))
+    @UploadFileNestjs('image', 'icon')
     async store(
         @Body() CreateGameDto: CreateGameDto,
-        @UploadedFiles() files: Express.Multer.File,
+        @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File },
         @GetUser() user: UserEntity
     ): Promise<any>{
-        console.log(files);
-        return await this.gameService.store(CreateGameDto, user);
+        const icon = files.icon[0].path;
+        const image = files.image[0].path;
+        return await this.gameService.store(CreateGameDto, user, icon, image);
     }
 
     /* GET [ ALL ]*/
@@ -114,12 +117,12 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     @UseInterceptors(FileFieldsInterceptor([
-        { name: 'picture', maxCount: 1 },
+        { name: 'image', maxCount: 1 },
         { name: 'icon', maxCount: 1 },
         ],
         PictureFileConfig 
     ))
-    @uploadFile('picture', 'icon')
+    @UploadFileNestjs('image')
     async update(
         @Param('id') id: string,
         @Body() UpdateGameDto: UpdateGameDto,

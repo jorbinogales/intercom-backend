@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
-import { uploadFile } from 'src/utils/files/UploadFile.decorator';
+import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/createAchievement.dto';
 import { UpdateAchievementDto } from './dto/updateAchievement.dto';
@@ -32,7 +32,7 @@ export class AchievementController {
         ],
         PictureFileConfig 
     ))
-    @uploadFile('icon')
+    @UploadFileNestjs('icon')
     async store(
         @Body() CreateAchievementDto: CreateAchievementDto,
         @UploadedFile() file: { icon: Express.Multer.File[] },
@@ -82,7 +82,7 @@ export class AchievementController {
         ],
         PictureFileConfig 
     ))
-    @uploadFile('icon')
+    @UploadFileNestjs('icon')
     async update(
         @Param('id') id: string,
         @Body() updateAchievementDto: UpdateAchievementDto,

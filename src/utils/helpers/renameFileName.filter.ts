@@ -1,6 +1,4 @@
-export const RenameImage = (req, file, callback) => {
-    const name = file.originalname.split('.')[0];
-    const fileName = file.originalname;
+export const RenameImage = (callback) => {
     const randomName = Array(32)
         .fill(null)
         .map(() => Math.round(Math.random() * 32).toString(32))

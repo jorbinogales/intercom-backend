@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "dotted-guru-322720",
+  "private_key_id": "a1b3b211fcdd9f00e5a052efb2fdcc7195475ea4",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCXcnR79CMbFoIK\ncjrq3mLBA5lBlyYrYoGVj3hpu9/wRJrLyzO/nlOtlg8/UfQdE/NPJ7mW/KJzzvfk\njgOhjMC+zCK9fNx1SmJwOtc9fnfrKoQXAYvkY5EOxovyXZkISUXAWvA7+9kxdnNd\nrfMMHSMtI8iozbb0WSeDPOnHzbeuaVxL40pW6jNHpOgIkFhZ6WG5UV2I+BI8E/qj\n/ip8A0vejQ+8g7Uqze+Ph7oJbaoal2RJKF0vDOSYr7b2KV4IhygFSo8JdWt3QfV+\nViBANpumYkZsmYE93yNk3LQ0E4HefWVQYMWXE5xPteFoK32MLYIYHiLR0MpIIIsi\n6qf8LRCVAgMBAAECggEABAZUYcRNEIkbtYaq7XmnuG6SoLwHZCadwCR9bzhewzKD\n2dhlQshEtvHTxMBxTk42ncEsFaZSam88wX3BcreDmmmIUIJLsbWA7khgL0iGn7SP\nHz8WizjW7rDIeT6c/nqSetrBD5BCf+DleyFtzjgIKqFvPekveytJYLk1a5YGogre\nMI0soT5TgzF816NndA00csd8LoPTaemMb8YKLNYXome+COXa8skaQb+NafFp+qnG\noz5ibNbe4yB2rnaOfc1IX6X+T0pV6u6pVz+i2geMRGLC61Ds5k3JqIMQYL1nwsMv\n/5M8R2im/ht2DWfUb/JJDTv3bYRgHR/tn3MoyTfq2wKBgQDT9z6F96L4sUWa2C1X\nTrkntS6tgaiAcA8cyb3DBhPm48aep5C/jyqy42EkNcyU9FyxjMgLdutAphQwVrpl\n9OhzvdcVwxeLph6detDtfldLnQHA+RuCjNMubtxNhjR2fQ8Myagfo0avtMdUWGTZ\nYw7Bnm9UiuMybDjGGgpgRTGNZwKBgQC26LUfsPhA8z7IsLK8j1/BFRO3uQW2qUjo\n5aQQIoatJoKyAEeYcWH9xGF1OApzGiIbcDpsNjmjswYV45sg103Ek5Tbb+/aNvW/\nxAOdXzDudV/JaOjLVM1NBi1Q6haq4y1Sh27jVP9A4A/dgt9gBRqaQvSz0PMEo/Wc\nujPOs1K4owKBgAlwCsKgQgtcqUK5uVsX0DqqYIetLDl7w9B+Uwqp7JztK1zJDTLa\nRwZsBVk9Y/yF3NKy9/06sELSojd8xRPhEbCFlVwMsbGwFdDhNQg+BdkCBp/293ia\nmJSKrxhsj01vSApDuE6gUHdmTzG8NdFQDcolKcPT40XNd8GqSyf6LLilAoGAI0qR\nL/UwYS/NzGEzi2hKfHG5pThA3vaYx78PQcG3pI8KppehOMufsZwDhd9zPLQtIogr\n7Zck1e4D3ZNV6idArQ4gqZpWeA8kqYSDggjM4yWofq8MQ7cwCY2IjtUr3HsK0qKp\nBZnvyi+xP/cxbFBvypXiqxNE4H9WM5BF0LsO2esCgYBE6wlXsSErdGzvK6DXkLPO\nHb3g7q14zvsRsmLHVBE9BuRTwT3jQ44TtCTLZFQ7gP144l00ZIbT3jy9z0dxkc0A\n7DO3kenrS+p63XtjpUUFBIwA0MX88NeMSWTItMWKwwQwCVw8pDcZQlIl7bq1Z74r\ncP9I1Ic4XZ0qKt8JnDIFhw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "hub-panel-desarrollador@dotted-guru-322720.iam.gserviceaccount.com",
+  "client_id": "114728112358517187349",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/hub-panel-desarrollador%40dotted-guru-322720.iam.gserviceaccount.com"
+}

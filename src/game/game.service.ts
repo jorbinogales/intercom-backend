@@ -14,12 +14,14 @@ export class GameService {
     /* CREATE GAME */
     async store(
         createGameDto: CreateGameDto,
-        user: UserEntity): Promise<any>{
+        user: UserEntity,
+        icon: string,
+        image: string,): Promise<any>{
         const { category_id } = createGameDto;
         await this.categoryService.get(category_id)
         return this.microDev.send(
             { cmd: 'game_store' },
-            { createGameDto, user });
+            { createGameDto, user, icon, image });
     }
 
     /* GET  GAME */

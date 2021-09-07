@@ -1,13 +1,17 @@
 import { MulterOptions } from "@nestjs/platform-express/multer/interfaces/multer-options.interface";
-import { diskStorage } from "multer";
+import { join } from "path";
 import { pictureFilter } from "../helpers/picture.filter";
 import { RenameImage } from "../helpers/renameFileName.filter";
+import * as multerGoogleStorage from 'multer-google-storage';
 
 export const PictureFileConfig: MulterOptions = {
-    storage: diskStorage({
-        destination: './uploads',
-        filename: RenameImage
-    }),
+    storage:
+        multerGoogleStorage.storageEngine({
+            projectId: 'dotted-guru-322720',
+            bucket: 'hub_paneldesarrollador_bucket',
+            keyFilename: join(__dirname, '..', 'dotted-guru-322720-a1b3b211fcdd.json'),
+            fileName: RenameImage,
+        }),
     preservePath: true,
     limits: {
         fileSize: 2400000,

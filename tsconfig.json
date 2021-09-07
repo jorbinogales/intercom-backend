@@ -13,20 +13,9 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
-      "@app/gateway-library": [
-        "libs/gateway-library/src",
-        "libs/gateway-library/src"
+      "@app/files" :[
+        "files/*"
       ],
-      "@app/gateway-library/*": [
-        "libs/gateway-library/src/*",
-        "libs/gateway-library/src/*"
-      ],
-      "@app/database": [
-        "libs/database/src"
-      ],
-      "@app/database/*": [
-        "libs/database/src/*"
-      ]
     }
   }
 }

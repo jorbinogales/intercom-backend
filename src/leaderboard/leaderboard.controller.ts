@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
-import { uploadFile } from 'src/utils/files/UploadFile.decorator';
+import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';
 import { UpdateLeaderboardDto } from './dto/updateLeaderboard.dto';
 import { LeaderBoardEntity } from './entities/leaderboard.entity';
@@ -27,7 +27,7 @@ export class LeaderboardController {
     @UseInterceptors(
         FileInterceptor('icon', PictureFileConfig)
     )
-    @uploadFile('icon')
+    @UploadFileNestjs('icon')
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
@@ -73,7 +73,7 @@ export class LeaderboardController {
     @UseInterceptors(
         FileInterceptor('icon', PictureFileConfig)
     )
-    @uploadFile('icon')
+    @UploadFileNestjs('icon')
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)

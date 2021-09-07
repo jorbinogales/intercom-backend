@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "smart-road-325220",
+  "private_key_id": "5ce454b7d32f8d81d4368d1bad218311dd6f9320",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6YI+vZ2kAzKZ9\ndBUbWjbAWiaxnMv18CJov+aiSHwUO7XWHmQx/CRg8nsNhgZg9Z/WZr8QT6bgShyc\nF2bQH0l1k8L80oeNiZNR20fAIJ6CPexABFZoxLyNvwZYNA6Kf6GvLA7i8OTRwSA+\nVAMocYeL4EyrfnDawqjHVi4jlZw6PEuhvn6Ly9g/1nmPhyHWwPyDqJe1l7NeIESv\nTQIZ0pgA1qgnKggCF/v4Ez7dRFB9HfzcFI33uDjK+zFgwgl/1BqIwfHvZr35F4q+\nKgrFo+kqlif8nDm1evqbv50Zru/hLp8hXvHwAayZ+7K/uybq5wR1TJBUzFjBucxz\nNOQ7q4IfAgMBAAECggEATPYrzzQmFYjspThmsN1PZ52yhbxoMt4e719zBwdkiVxg\nyZLSMBvdD9WBf8Oc5bP39WqHMl6Z29tutfwp3f5VcMJ8DbeH9yfc2DvzBIDTw5d7\nc7H21puK+wNrRMf2SzXKF9JbMVZlPsJ/pI0/opdC8D1Gm7iCNKuWU34gXlxc32Sr\nHhWy+gbe3MoBrjqVbDmLNscm+f7fm9zHISJzb89RqGPt0TxDJxGuIHOjecFgOOdJ\n3pExvamhQ62v/8SCtcO5pFOqxbFHGQoOPJ1tzK0ZABgm9x+4F+80X91QKfOeVUSu\nr646FXGw7uhdYg2e1LSL65BrnNyHuECngpLH6g/SbQKBgQDho7MVKUn2+Nqh4MIO\n70fd/YI87YYxhoyn1WZl5F11/W+dhMsCa+mzeVfCJaaQTS1WgG03DfExpeSddEUk\nSunjB0BcFFad6HU+lNHtFWIdtHkl3dUsVTkfRu2mSaD0QfU5YgZbU+/pfiZceb/N\nIeAKNRYVcoOTwLUey870pL6sWwKBgQDTdHJ7kszKnryhDlx0QmKAf6XKrqlPEzOR\n0nb+8gvPZphKeICXGHbpeh0T4eWw6rb2dCTYqrw7AQ6drBxO94vlbLEzAlV/xPJG\nkvHYMB0dEnbwouShXDvuoNN/DUdzsFYhoVm8M05+a/enVB6A7kB7Ld9HpyMI1Mz2\nsG8fC4f8jQKBgFIt6eJyKEMv/YjpsCP6WCVs2EtSgwZ0p7PU0DeaBcQcatNm8v1N\nyk8YibLnPZPe1/1iRuS/SjI35lzGZQxD0I1kLbebnLRkXpdNYmvD1vlUqq707Vf5\nLhXLInDm7h0oDKU6o3AN0RosXNJfcVDH3q45CXMEQxHEJPMzbYvCmMNzAoGAM21X\nxoweeI0ArV7zx2a51Cy3YsL19IBkA2wfesPdcXSvRzVleNn/WatUVRiUp2F+XBRF\nPdjQbL1GE7zfKal1AbhcpF5F8wwwLE/it8SD4CU0fjPvzPrErLW6mmTdYtqZKBa4\n31fPGFoj4jNIM+0+C3dNnXydvbEbpEemzvMcAKUCgYEAwVgD2l14ejkpT9qTaFA9\n8MxwBo61nBpvCGa2eZKqFObBQktA5wvCKRoJNeEGRZLqnP5yW8kN1OSCRoY37/2c\na9ZH2pK/waQ5g5SAN7dOy8tSZ9nIOLGSiVlWDtThlXsyQWQ2P4QhJEbyW8atGNVZ\n+4uyCwdbL+vtGqVEe65ciPs=\n-----END PRIVATE KEY-----\n",
+  "client_email": "nestjs@smart-road-325220.iam.gserviceaccount.com",
+  "client_id": "111944113571671678422",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nestjs%40smart-road-325220.iam.gserviceaccount.com"
+}

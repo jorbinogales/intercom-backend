@@ -62,7 +62,6 @@ export class AuthService {
     async AdminLogin(createUserDto: CreateUserDto): Promise<any>{
         const { id_azure } = createUserDto;
         const user = await this.validateUser(id_azure, 'MICRO-ADMIN');
-        console.log(user);
         if (!user) {
             await this.microAdmin.send({ cmd: 'admin_store' }, { createUserDto }).toPromise();
         }

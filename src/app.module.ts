@@ -5,7 +5,6 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { RoleModule } from './role/role.module';
 import { AchievementModule } from './achievement/achievement.module';
-import { AchievementUnlockedController } from './achievement-unlocked/achievement-unlocked.controller';
 import { AchievementUnlockedModule } from './achievement-unlocked/achievement-unlocked.module';
 import { GameUserModule } from './game-user/game-user.module';
 import { LeaderboardModule } from './leaderboard/leaderboard.module';
@@ -28,6 +27,5 @@ import { EventPlayerModule } from './event-player/event-player.module';
     EventModule,
     EventPlayerModule,
   ],
-  controllers: [AchievementUnlockedController],
 })
 export class AppModule {}

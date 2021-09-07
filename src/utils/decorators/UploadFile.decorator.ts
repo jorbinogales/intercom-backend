@@ -1,6 +1,6 @@
 import { ApiBody } from '@nestjs/swagger';
 
-export const uploadFile = (picture: string = 'file', icon: string = 'file'): MethodDecorator => (
+export const UploadFileNestjs = (image: string = 'image', icon: string = 'icon'): MethodDecorator => (
     target: any,
     propertyKey,
     descritor: PropertyDescriptor,
@@ -9,7 +9,11 @@ export const uploadFile = (picture: string = 'file', icon: string = 'file'): Met
         schema: {
             type: 'Object',
             properties: {
-                [picture]: {
+                [image]: {
+                    type: 'string',
+                    format: 'binary',
+                },
+                [icon]: {
                     type: 'string',
                     format: 'binary',
                 }
