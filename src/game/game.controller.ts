@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBasicAuth, ApiBearerAuth, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/createGame.dto';
 import { RolesGuard } from './../auth/guards/role.guard';
@@ -33,19 +33,21 @@ export class GameController {
     @UseInterceptors(FileFieldsInterceptor(
         [
             { name: 'image' },
-            { name: 'icon'}
+            { name: 'icon' },
+            { name: 'screenshots'}
         ],
         PictureFileConfig,
     ))
-    @UploadFileNestjs('image', 'icon')
+    @UploadFileNestjs('image', 'icon', 'screenshots')
     async store(
         @Body() CreateGameDto: CreateGameDto,
-        @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File },
+        @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File, screenshots : Express.Multer.File  },
         @GetUser() user: UserEntity
     ): Promise<any>{
+        const screenshots = files.screenshots;
         const icon = files.icon[0].path;
         const image = files.image[0].path;
-        return await this.gameService.store(CreateGameDto, user, icon, image);
+        return await this.gameService.store(CreateGameDto, user, icon, image, screenshots);
     }
 
     /* GET [ ALL ]*/
@@ -108,6 +110,21 @@ export class GameController {
         return await this.gameService.check(id, user);
     }
 
+    /* CHANGE STATUS [ONLY ADMIN] */
+    @Put('status/:id')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Change Status [ONLY ADMIN]' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Admin)
+    async changeStatus(
+        @Param('id') id: string,
+        @GetUser() user: UserEntity): Promise<GameEntity>{
+        return await this.gameService.changeSatus(user, id);
+    }
+
+
     /* UPDATE GAME  [ ONLY DEV ]*/
     @Patch(':id')
     @ApiBasicAuth('XYZ')
@@ -117,10 +134,11 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     @UseInterceptors(FileFieldsInterceptor([
-        { name: 'image', maxCount: 1 },
-        { name: 'icon', maxCount: 1 },
+            { name: 'image', maxCount: 1, },
+            { name: 'icon', maxCount: 1, },
+            { name: 'screenshots', maxCount:5}
         ],
-        PictureFileConfig 
+        PictureFileConfig,
     ))
     @UploadFileNestjs('image')
     async update(

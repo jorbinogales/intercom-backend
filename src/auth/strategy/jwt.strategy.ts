@@ -10,10 +10,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             secretOrKey: 'yoursecret'
         })
     }
-
+    
     async validate(payload: any) {
         return {
             'id': payload.id,
+            'id_azure': payload.id_azure,
             'microservice': payload.microservice,
         }
     }

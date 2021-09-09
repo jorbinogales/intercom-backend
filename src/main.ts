@@ -2,13 +2,14 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { join } from 'path';
 
 async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe());
   
+  app.useGlobalPipes(new ValidationPipe());
+  app.enableCors({credentials: true, origin: "http://localhost:4200"});
+
   const options = new DocumentBuilder()
     .setTitle('HUB VIDEO JUEGOS NEST')
     .setDescription('THE API BACK PIXELING')
@@ -20,10 +21,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, options);
     SwaggerModule.setup('documentation', app, document);
 
-  await app.listen(3000, () => {
-    console.log();
-
-  });
+  await app.listen(3000, () => {  });
   Logger.log('GATEWAY IS RUNNING');
 }
 bootstrap();

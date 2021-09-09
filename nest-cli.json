@@ -2,6 +2,15 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
   "projects": {
+    "cords-library": {
+      "type": "library",
+      "root": "libs/cords-library",
+      "entryFile": "index",
+      "sourceRoot": "libs/cords-library/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/cords-library/tsconfig.lib.json"
+      }
+    }
   },
   "compilerOptions": {
     "webpack": true

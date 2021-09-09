@@ -16,12 +16,14 @@ export class GameService {
         createGameDto: CreateGameDto,
         user: UserEntity,
         icon: string,
-        image: string,): Promise<any>{
+        image: string,
+        screenshots: Object,
+    ): Promise<any>{
         const { category_id } = createGameDto;
         await this.categoryService.get(category_id)
         return this.microDev.send(
             { cmd: 'game_store' },
-            { createGameDto, user, icon, image });
+            { createGameDto, user, icon, image, screenshots });
     }
 
     /* GET  GAME */
@@ -51,8 +53,16 @@ export class GameService {
     async delete(
         user: UserEntity,
         id: string): Promise<any> {
-        await this.check(id, user);
-        return await this.microDev.send({ cmd: 'game_delete' }, { user, id }).toPromise();
+        const game = await this.check(id, user);
+        return await this.microDev.send({ cmd: 'game_delete' }, { user, game }).toPromise();
+    }
+    
+    /* CHANGE STATUS */
+    async changeSatus(
+        user: UserEntity,
+        id: string): Promise<any> {
+        const game = await this.get(id);
+        return await this.microDev.send({ cmd: 'game_change_status' }, { user, game }).toPromise();
     }
 
     /* CHECK PROPERTY A GAME */

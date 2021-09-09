@@ -13,9 +13,6 @@
     "incremental": true,
     "skipLibCheck": true,
     "paths": {
-      "@app/files" :[
-        "files/*"
-      ],
     }
   }
 }

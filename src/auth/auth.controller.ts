@@ -22,7 +22,7 @@ export class AuthController {
     @ApiOperation({ summary: 'Authentification Developer [ONLY DEV]' })
     @ApiBadGatewayResponse({ description: 'User deleted' })
     @ApiCreatedResponse({ description: 'User Login' })
-    async login(@Body() CreateUserDto: CreateUserDto): Promise<any>{
+    async login(@Body() CreateUserDto: CreateUserDto): Promise<UserEntity>{
         return await this.authService.login(CreateUserDto);
     }
 
@@ -39,6 +39,23 @@ export class AuthController {
     async profile(@Request() req: any): Promise<UserEntity>{
         const id = req.user.id;
         return await this.authService.profile(id, 'MICRO-DEV');
+    }
+
+    
+    /* REFRESH TOKEN DEVELOPER */
+    @Post('refresh')
+    @ApiBasicAuth('XYZ')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Refresh token developer [ONLY DEV]' })
+    @ApiBadGatewayResponse({ description: 'Unathorized' })
+    @ApiCreatedResponse({ description: 'Refresh token developer' })
+    @UseGuards(RolesGuard)
+    @UseGuards(JwtAuthGuard)
+    @hasRoles(Roles.Developer)
+    async refresh(
+        @Body() body: any,
+    ): Promise<any>{
+        return await this.authService.refresh(body.token);
     }
 
        /* LOGIN FOR ADMIN */

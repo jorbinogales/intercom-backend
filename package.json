@@ -97,7 +97,8 @@
     "moduleNameMapper": {
       "^@app/gateway-library(|/.*)$": "<rootDir>/libs/gateway-library/src/$1",
       "^@app/database(|/.*)$": "<rootDir>/libs/database/src/$1",
-      "^y/gateway-library(|/.*)$": "<rootDir>/libs/gateway-library/src/$1"
+      "^y/gateway-library(|/.*)$": "<rootDir>/libs/gateway-library/src/$1",
+      "^@app/cords-library(|/.*)$": "<rootDir>/libs/cords-library/src/$1"
     }
   }
 }

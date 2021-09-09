@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "smart-road-325220",
+  "private_key_id": "57a91a30e9b5b8d3f0e4a1326a80c9d66cbfd216",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCuBQsKuSN/OI47\nCYorEBc6m98HLNIBcp4iTbPb3chJy8/AvVe7Ly70Di2X1ExhsSHAex9L5xse0llD\ntFswzcFpANB4XEByiBj9ayEG4+lDSAkMjdNFYOVjhBFM8GEZEXrpUqWHccoL0umJ\nNRpkZQnLdJffjV5GE9plkdtpnfxFzmxxrNUGJWujFbuKs9noraY+2pIhc0N2pkfs\nilWgByibK6lCklBVEQYMHXYDy24Bv4q8RPfjVzr1CDcZiqpn+dgB9W8vrg/eThxV\nZPHFfEVRXdnZORiAu9PDMmu2AMER4PLBoXfcFa2VwIJI+AnnCLuUcBmpjudEvEGu\ncGd4dhFZAgMBAAECggEAAL+FTWG/4RFjbSYMmcRLMUWPxyZebcKqIuAeJJUWwhh1\n93Bo8uVQSJzR/dvcCzR5fmwZFZi0AWUqnJOnK7XKvdKS0t2kqkljAB3oibDLpS4n\nWc43SQ5SViPwdhn3dOXiFyQzkXpAAd6BggVALIvRp7YD3CJttBPsRbEDljfnaH5p\nnxlD08SgPGGeOXLXKXscH8ZAOC3MNr8M5PcW0AtE39XqMlIpuSuCluBn5Ab84tHt\nex5GMelpce1Re15v91mchn4eZdWrGr6XsfxddMc7DpB/6/0G8VrttQLk6ORUoAx4\nAzAJw0rJvJEs5BFBXXG6wj6iGH6RFuUZHzMOiVGnoQKBgQDmLq62pd/ON3EFWpc9\nHW6eFMTaQtS4+Kn4HCN1vqwAJNrV+o4kjSSs5Ns2SfEBDNlJ10gJu1uBy8oK1901\nQUk1L0b21BI+I8dAcosU+Kg+3bSLRmuWkGC1+w5Xir97ZRjniGWo6BAERIHz+1hK\nEfREmcZ8lyAGFq5abX4hWLYkcQKBgQDBib1yno3YeS2WjaOqz/8bWaxTTiKdFB62\nBKlnmJfhuRAOzthKXv6DDV4sQG/4YA6j5BMiO2vW1lIEj+QftUVOdIKAk+HWWc7r\nty7ettoUuKoAN4i+PbRUlHxJEAFtTxwIz1W/qT4yMcASDswa90tAQlBCxt8EMjMk\nFk6CqMaPaQKBgQDc2a2IUV6K3WbzXBf/611XD1ZQlA7F6tAp3dWoA2nEOZg99kir\niUDHIk2xqQAzocBZuNTFgZ4qyvzvqm3zytAS12mfKZrXRDzI+R244VuL9exkNQzF\nSYGBGYCJPfa6ziU3AQeJKB81+QU2stHjP5a+u0xV/iobrWdcG/IIzLT2AQKBgGmQ\nmwBBEbfI6R/cpDBQgaLGd+N8lA6/4byAsHJsXjPmAKdDFeEDDaooCXzzrN96baHh\njro2VSz6/AO3BMRy2JnhnSlLAH0twVr7MRqT/EIfM8Moh3LVL16PG3eyvkSESRNZ\nHDmNs/om/tAauCPhTW+AfEzgMtcUFqcRb8N/Ecc5AoGAbFeRHuF8dT5gnNRZ3Bdv\nDv5jFW7dlY080tFVVFSgQuaLCRST1iQEju8BP/zzWWbEfsZEjSFA0sHr2jSRrrOF\nStLhTpByymhmG6oEL0tZjVhoyRdWeAWVtBucFfUeMY11zbKkhIIuG6ijGWnU1HTk\n7+CWr1egvr50fXnh2cYQn88=\n-----END PRIVATE KEY-----\n",
+  "client_email": "jorbi-331@smart-road-325220.iam.gserviceaccount.com",
+  "client_id": "111239592405441684286",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/jorbi-331%40smart-road-325220.iam.gserviceaccount.com"
+}

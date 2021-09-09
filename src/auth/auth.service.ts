@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt'
 import { CreateUserDto } from './dto/createUser.dto';
@@ -46,13 +46,14 @@ export class AuthService {
 
     async login(createUserDto: CreateUserDto): Promise<any>{
         const { id_azure } = createUserDto;
-        const user = await this.validateUser(id_azure, 'MICRO-DEV');
+        let user = await this.validateUser(id_azure, 'MICRO-DEV');
         if (!user) {
-            await this.microDev.send({ cmd: 'user_store' }, { createUserDto }).toPromise();
+            user = await this.microDev.send({ cmd: 'user_store' }, { createUserDto }).toPromise();
         }
         return await this.validateUser(id_azure, 'MICRO-DEV').then((userData) => {
             const Token = this.createToken(userData, 'MICRO-DEV');
             return {
+                user,
                 access_token: Token,
                 statusCode: 200
             }
@@ -74,10 +75,28 @@ export class AuthService {
         }); 
     }
 
+    /* REFRESH TOKEN */
+    async refresh(token: string): Promise<any>{
+        const payload = this.jwtService.verify(token);
+        if (!payload) {
+            throw new UnauthorizedException;
+        }
+        const user = await this.validateUser(payload.id_azure, payload.microservice);
+       return await this.validateUser(payload.id_azure, payload.microservice).then((userData) => {
+            const Token = this.createToken(userData, payload.microservice);
+            return {
+                user,
+                access_token: Token,
+                statusCode: 200
+            }
+        }); 
+    }
+
   
     createToken(userData: any, microservice: string) {
         const payload = {
             'id': userData.id,
+            'id_azure': userData.id_azure,
             'microservice': microservice,
         };
         return this.jwtService.sign(payload);
