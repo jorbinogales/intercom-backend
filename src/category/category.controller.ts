@@ -41,7 +41,7 @@ export class CategoryController {
     @Get(':id')
     @ApiOperation({ summary: 'Get a category [ALL]' })
     async get(
-        @Param('id') id: string,
+        @Param('id') id: number,
     ): Promise<any>{
         return await this.categoryService.get(id);
     }
@@ -56,7 +56,7 @@ export class CategoryController {
     @hasRoles(Roles.Admin)
     async update(
         @Body() updateCategoryDto: UpdateCategoryDto,
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity): Promise<any>{
         return await this.categoryService.update(updateCategoryDto, id, user);
     }
@@ -71,7 +71,7 @@ export class CategoryController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Admin)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity): Promise<any>{
         return await this.categoryService.delete(id, user);
     }

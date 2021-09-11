@@ -58,14 +58,14 @@ export class AchievementController {
     /* GET A ACHIEVEMENT WIDTH ID [ ALL ] */
     @Get(':id')
     @ApiOperation({ summary: 'Get a achievement with id [ALL]' })
-    async get(@Param('id') id:string): Promise<AchievementEntity>{
+    async get(@Param('id') id:number): Promise<AchievementEntity>{
         return await this.achievementService.get(id)
     }
 
      /* GET ACHIEVEMET FROM GAME [ ALL ] */
     @Get('game/:id')
     @ApiOperation({ summary: 'Get all achievement from game [ALL]' })
-    async getFromGame(@Param('id') id:string): Promise<AchievementEntity[]>{
+    async getFromGame(@Param('id') id:number): Promise<AchievementEntity[]>{
         return await this.achievementService.getFromGame(id)
     }
 
@@ -84,7 +84,7 @@ export class AchievementController {
     ))
     @UploadFileNestjs('icon')
     async update(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @Body() updateAchievementDto: UpdateAchievementDto,
         @UploadedFile() file: { icon: Express.Multer.File[] },
         @GetUser() user: UserEntity,
@@ -102,7 +102,7 @@ export class AchievementController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity,
     ): Promise<any>{
         return await this.achievementService.delete(id, user);

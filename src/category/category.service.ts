@@ -18,7 +18,7 @@ export class CategoryService {
     }
 
     /* GET A CATEGORY */
-    async get(id: string): Promise<CategoryEntity>{
+    async get(id: number): Promise<CategoryEntity>{
         const category = await this.microAdmin.send({ cmd: 'category_get' }, { id }).toPromise();
         if (!category) {
             throw new NotFoundException(`Category With ID ${id} NOT FOUND`);
@@ -37,7 +37,7 @@ export class CategoryService {
     /* UPDATE A CATEGORY */
     async update(
         updateCategoryDto: UpdateCategoryDto,
-        id: string,
+        id: number,
         user: UserEntity
     ): Promise<any>{
         const category = await this.get(id);
@@ -49,7 +49,7 @@ export class CategoryService {
 
     /* DELETE  A CATEGORY*/
     async delete(
-        id: string,
+        id: number,
         user: UserEntity
     ): Promise<any>{
         const category = await this.get(id);

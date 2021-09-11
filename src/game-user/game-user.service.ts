@@ -30,18 +30,18 @@ export class GameUserService {
     }
 
     /* DELETE GAME USER */
-    async delete(id: string, user: UserEntity): Promise<any>{
+    async delete(id: number, user: UserEntity): Promise<any>{
         const gameuser = await this.check(id, user);
         return await this.microDev.send({ cmd: 'gameuser_delete' }, { gameuser, user }).toPromise();
     }
 
     /* PLAYER IS PLAYING */
-    async checkPlaying(game: GameEntity, user_id: string): Promise<GameUserEntity>{
+    async checkPlaying(game: GameEntity, user_id: number): Promise<GameUserEntity>{
         return await this.microDev.send({ cmd: 'gameuser_isplaying' }, {game, user_id}).toPromise();
     }
 
     /* DELETE GAME USER */
-    async check(id: string, user: UserEntity): Promise<GameUserEntity>{
+    async check(id: number, user: UserEntity): Promise<GameUserEntity>{
         const check = await this.microDev.send({ cmd: 'gameuser_check' }, { id, user }).toPromise();
         if (!check) {
             throw new NotFoundException(`Game user with id ${id} is not your property`);

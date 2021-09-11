@@ -27,7 +27,7 @@ export class GameService {
     }
 
     /* GET  GAME */
-    async get(id: string): Promise<GameEntity> {
+    async get(id: number): Promise<GameEntity> {
         const game = await this.microDev.send({ cmd: 'game_get' }, { id }).toPromise();
         if (!game) {
             throw new NotFoundException(`Game with ${id} not found`)
@@ -44,7 +44,7 @@ export class GameService {
     async update(
         updateGameDto: UpdateGameDto,
         user: UserEntity,
-        id: string): Promise<any> {
+        id: number): Promise<any> {
         const game = await this.check(id, user);
         return await this.microDev.send({ cmd: 'game_update' }, { updateGameDto, user, game }).toPromise()
     }
@@ -52,7 +52,7 @@ export class GameService {
     /* DELETE A GAME */
     async delete(
         user: UserEntity,
-        id: string): Promise<any> {
+        id: number): Promise<any> {
         const game = await this.check(id, user);
         return await this.microDev.send({ cmd: 'game_delete' }, { user, game }).toPromise();
     }
@@ -60,14 +60,14 @@ export class GameService {
     /* CHANGE STATUS */
     async changeSatus(
         user: UserEntity,
-        id: string): Promise<any> {
+        id: number): Promise<any> {
         const game = await this.get(id);
         return await this.microDev.send({ cmd: 'game_change_status' }, { user, game }).toPromise();
     }
 
     /* CHECK PROPERTY A GAME */
     async check(
-        id: string,
+        id: number,
         user: UserEntity,
     ): Promise<GameEntity>{
         const game = await this.microDev.send(

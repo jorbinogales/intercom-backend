@@ -6,8 +6,8 @@ export class CreateEventDto {
 
     @IsString()
     @IsNotEmpty()
-    @ApiProperty({ type: 'string', description: 'id game', default: 1})
-    readonly game_id: string;
+    @ApiProperty({ type: 'number', description: 'id game', default: 1})
+    readonly game_id: number;
 
     @IsString()
     @IsNotEmpty()

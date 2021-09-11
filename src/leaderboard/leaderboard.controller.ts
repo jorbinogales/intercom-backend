@@ -61,7 +61,7 @@ export class LeaderboardController {
     /* GET ALL LEADERBOARDS FROM GAME [ ALL ]*/
     @Get('game/:id')
     @ApiOperation({ summary: 'Get all leaderboars from game [ALL]' })
-    async getFromGAME(@Param('id') id: string): Promise<LeaderBoardEntity[]>{
+    async getFromGAME(@Param('id') id: number): Promise<LeaderBoardEntity[]>{
         return await this.leaderService.getFromGames(id);
     }
 
@@ -78,7 +78,7 @@ export class LeaderboardController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async update(
-        @Param('id') id:string,
+        @Param('id') id:number,
         @Body() updateLeaderboardDto: UpdateLeaderboardDto,
         @GetUser() user: UserEntity,
         @UploadedFile() file: any
@@ -95,7 +95,7 @@ export class LeaderboardController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity,
     ): Promise<any>{
         return await this.leaderService.delete(id, user);

@@ -7,12 +7,12 @@ export class CreateScoreDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ type: 'string', description: 'id leader_board', default: 1})
-    readonly  leaderboard_id: string;
+    readonly  leaderboard_id: number;
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ type: 'string', description: 'id user', default: 1})
-    readonly user_id: string;
+    readonly user_id: number;
 
     @IsString()
     @IsNotEmpty()

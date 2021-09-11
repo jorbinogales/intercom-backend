@@ -12,7 +12,7 @@ export class UpdateAchievementDto {
         description: 'id of game',
         default: '1'
     })
-    readonly game_id: string;
+    readonly game_id: number;
 
     @IsString()
     @IsOptional()

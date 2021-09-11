@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Request, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBasicAuth, ApiBearerAuth, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/createGame.dto';
 import { RolesGuard } from './../auth/guards/role.guard';
@@ -31,18 +31,14 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     @UseInterceptors(FileFieldsInterceptor(
-        [
-            { name: 'image' },
-            { name: 'icon' },
-            { name: 'screenshots'}
-        ],
+        [ { name: 'image' }, { name: 'icon' }, { name: 'screenshots'}],
         PictureFileConfig,
     ))
     @UploadFileNestjs('image', 'icon', 'screenshots')
     async store(
         @Body() CreateGameDto: CreateGameDto,
         @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File, screenshots : Express.Multer.File  },
-        @GetUser() user: UserEntity
+        @GetUser() user: UserEntity,
     ): Promise<any>{
         const screenshots = files.screenshots;
         const icon = files.icon[0].path;
@@ -55,7 +51,7 @@ export class GameController {
     @ApiBasicAuth('XYZ')
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Get a game [ALL]' })
-    async get(@Param('id') id: string): Promise<GameEntity>{
+    async get(@Param('id') id: number): Promise<GameEntity>{
         return await this.gameService.get(id);
     }
 
@@ -90,7 +86,7 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer, Roles.Admin)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity): Promise<GameEntity[]>{
         return await this.gameService.delete(user, id);
     }
@@ -105,7 +101,7 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async check(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity): Promise<GameEntity>{
         return await this.gameService.check(id, user);
     }
@@ -119,7 +115,7 @@ export class GameController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Admin)
     async changeStatus(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity): Promise<GameEntity>{
         return await this.gameService.changeSatus(user, id);
     }
@@ -136,13 +132,13 @@ export class GameController {
     @UseInterceptors(FileFieldsInterceptor([
             { name: 'image', maxCount: 1, },
             { name: 'icon', maxCount: 1, },
-            { name: 'screenshots', maxCount:5}
+            { name: 'screenshots', maxCount: 5 }
         ],
         PictureFileConfig,
     ))
     @UploadFileNestjs('image')
     async update(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @Body() UpdateGameDto: UpdateGameDto,
         @UploadedFiles() files: { picture?: Express.Multer.File[], icon?: Express.Multer.File[] },
         @GetUser() user: UserEntity
@@ -150,6 +146,5 @@ export class GameController {
         console.log(files);
         return await this.gameService.update(UpdateGameDto, user, id);
     }
-
-
+    
 }

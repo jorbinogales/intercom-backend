@@ -69,6 +69,7 @@ export class AuthService {
         return await this.validateUser(id_azure, 'MICRO-ADMIN').then((userData) => {
             const Token = this.createToken(userData, 'MICRO-ADMIN');
             return {
+                user,
                 access_token: Token,
                 statusCode: 200
             }
@@ -81,11 +82,26 @@ export class AuthService {
         if (!payload) {
             throw new UnauthorizedException;
         }
-        const user = await this.validateUser(payload.id_azure, payload.microservice);
        return await this.validateUser(payload.id_azure, payload.microservice).then((userData) => {
             const Token = this.createToken(userData, payload.microservice);
             return {
-                user,
+                userData,
+                access_token: Token,
+                statusCode: 200
+            }
+        }); 
+    }
+
+     /* REFRESH TOKEN */
+    async logout(token: string): Promise<any>{
+        const payload = this.jwtService.verify(token);
+        if (!payload) {
+            throw new UnauthorizedException;
+        }
+       return await this.validateUser(payload.id_azure, payload.microservice).then((userData) => {
+            const Token = this.createToken(userData, payload.microservice);
+            return {
+                userData,
                 access_token: Token,
                 statusCode: 200
             }

@@ -18,8 +18,8 @@ export class GameEntity{
     googlePlay: string;
     playStore: string;
     oculusStore: string;
-    status: boolean;
-    populity: boolean;
+    status: number;
+    populity: number;
     created_by: UserEntity;
     updated_by: UserEntity;
     deleted_by: UserEntity;

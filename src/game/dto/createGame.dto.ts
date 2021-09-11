@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsBoolean, IsBooleanString, IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, IsEnum, IsNumber, IsBooleanString } from 'class-validator';
 
 
 export class CreateGameDto {
@@ -7,7 +7,7 @@ export class CreateGameDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ type: 'string', description: 'id category', default: 1})
-    readonly category_id: string;
+    readonly category_id: number;
 
     @IsString()
     @IsNotEmpty()
@@ -40,13 +40,13 @@ export class CreateGameDto {
 
     @IsBooleanString()
     @IsOptional()
-    @ApiProperty({ type: 'boolean', description: 'Game Status', default: 1})
-    readonly status: boolean;
+    @ApiProperty({ type: 'boolean', description: 'Game Status', default: 0 })
+    readonly status: true;
 
     @IsBooleanString()
     @IsOptional()
-    @ApiProperty({ type: 'boolean', description: 'Game populity', default: 0})
-    readonly populity: boolean;
+    @ApiProperty({ type: 'boolean', description: 'Game populity', default: 0 })
+    readonly populity: false;
 
 }
 

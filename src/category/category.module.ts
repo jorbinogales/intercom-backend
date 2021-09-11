@@ -8,7 +8,7 @@ import { CategoryService } from './category.service';
 @Module({
   imports: [
     AuthModule,
-    ClientsModule.register(GatewayOptions)
+    ClientsModule.registerAsync(GatewayOptions)
    ],
   controllers: [CategoryController],
   providers: [CategoryService],

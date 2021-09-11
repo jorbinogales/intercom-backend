@@ -43,13 +43,13 @@ export class EventService {
     }
 
     /* GET FROM GAME */
-    async getFromGames(game_id: string): Promise<EventEntity[]>{
+    async getFromGames(game_id: number): Promise<EventEntity[]>{
         const game = await this.gameService.get(game_id);
         return await this.microDev.send({ cmd: 'event_get_from_game' }, { game }).toPromise();
     }
 
     /* CHECK */
-    async check(id: string, user: UserEntity): Promise<EventEntity>{
+    async check(id: number, user: UserEntity): Promise<EventEntity>{
         const event = await this.microDev.send({ cmd: 'event_check' }, { id, user }).toPromise();
         if (!event) {
             throw new NotFoundException(`This event is not your property`);
@@ -61,7 +61,7 @@ export class EventService {
     async update(
         updateEventDto: UpdateEventDto,
         user: UserEntity,
-        id: string
+        id: number
     ): Promise<any> {
         const event = await this.check(id, user);
         const { game_id } = updateEventDto;
@@ -78,7 +78,7 @@ export class EventService {
     /* DELETE */
     async delete(
         user: UserEntity,
-        id: string,
+        id: number,
     ): Promise<any>{
         const event = await this.check(id, user);
         return await this.microDev.send(

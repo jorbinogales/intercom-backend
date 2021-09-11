@@ -11,9 +11,12 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
 import { ScoreModule } from './score/score.module';
 import { EventModule } from './event/event.module';
 import { EventPlayerModule } from './event-player/event-player.module';
+import { EasyconfigModule } from 'nestjs-easyconfig';
+require('dotenv').config();
 
 @Module({
   imports: [
+    EasyconfigModule.register({path: `environment/.env.${process.env.NODE_ENV}`, safe: true}),
     CategoryModule,
     GameModule,
     AuthModule,
@@ -26,6 +29,7 @@ import { EventPlayerModule } from './event-player/event-player.module';
     ScoreModule,
     EventModule,
     EventPlayerModule,
-  ],
+  ]
+    
 })
 export class AppModule {}

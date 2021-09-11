@@ -52,7 +52,7 @@ export class GameUserController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity,
     ): Promise<any> {
         return await this.gameUserService.delete(id, user);

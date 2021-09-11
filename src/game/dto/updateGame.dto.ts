@@ -6,8 +6,8 @@ export class UpdateGameDto {
 
     @IsString()
     @IsOptional()
-    @ApiProperty({ type: 'string', description: 'id category', default: 1})
-    readonly category_id: string;
+    @ApiProperty({ type: 'number', description: 'id category', default: 1})
+    readonly category_id: number;
 
     @IsString()
     @IsOptional()
@@ -40,12 +40,12 @@ export class UpdateGameDto {
 
     @IsBooleanString()
     @IsOptional()
-    @ApiProperty({ type: 'boolean', description: 'Game Status', default: 1})
+    @ApiProperty({ type: 'boolean', description: 'Game Status', default: "true"})
     readonly status: boolean;
 
     @IsBooleanString()
     @IsOptional()
-    @ApiProperty({ type: 'boolean', description: 'Game populity', default: 0})
+    @ApiProperty({ type: 'boolean', description: 'Game populity', default: "false"})
     readonly populity: boolean;
     
 }

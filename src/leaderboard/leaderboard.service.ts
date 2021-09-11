@@ -44,7 +44,7 @@ export class LeaderboardService {
     }
 
     /* GET LEADERBOARD FROM GAMES */
-    async getFromGames(id: string): Promise<LeaderBoardEntity[]>{
+    async getFromGames(id: number): Promise<LeaderBoardEntity[]>{
         const game = await this.gameService.get(id);
         return await this.microDev.send(
             { cmd: 'leaderboard_get_from_game' },
@@ -56,7 +56,7 @@ export class LeaderboardService {
     async update(
         updateLeaderboardDto: UpdateLeaderboardDto,
         user: UserEntity,
-        id: string,
+        id: number,
         file: any): Promise<any>{
         const { game_id } = updateLeaderboardDto;
         const leaderboard = await this.check(id, user);
@@ -71,7 +71,7 @@ export class LeaderboardService {
     }
 
     /* DELETE A LEADERBOARD */
-    async delete(id: string, user: UserEntity): Promise<any>{
+    async delete(id: number, user: UserEntity): Promise<any>{
         const leaderboard = await this.check(id, user);
         return await this.microDev.send(
             { cmd: 'leaderboard_delete'},
@@ -80,7 +80,7 @@ export class LeaderboardService {
     }
 
     /* CHECK PROPERTY LEADERBOARD */
-    async check(id: string, user: UserEntity): Promise<LeaderBoardEntity>{
+    async check(id: number, user: UserEntity): Promise<LeaderBoardEntity>{
         const leaderboard = await this.microDev.send(
             { cmd: 'leaderboard_check' },
             { id, user }

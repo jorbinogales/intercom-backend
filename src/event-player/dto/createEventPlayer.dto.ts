@@ -7,12 +7,12 @@ export class CreateEventPlayerDto {
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ type: 'string', description: 'id game', default: 1})
-    readonly event_id: string;
+    readonly event_id: number;
 
     @IsString()
     @IsNotEmpty()
     @ApiProperty({ type: 'string', description: 'id user', default: 1})
-    readonly user_id: string;
+    readonly user_id: number;
 
     @IsJSON()
     @IsNotEmpty()

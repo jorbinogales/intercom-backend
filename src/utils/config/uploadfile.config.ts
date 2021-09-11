@@ -19,6 +19,7 @@ export const PictureFileConfig: MulterOptions = {
         //     fileName: RenameImage,
         // }),
     preservePath: true,
+    // dest: './uploads',
     limits: {
         fileSize: 2400000,
     },

@@ -7,7 +7,7 @@ export class UpdateEventDto {
     @IsString()
     @IsOptional()
     @ApiProperty({ type: 'string', description: 'id game', default: 1})
-    readonly game_id: string;
+    readonly game_id: number;
 
     @IsString()
     @IsOptional()

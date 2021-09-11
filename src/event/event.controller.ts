@@ -55,7 +55,7 @@ export class EventController {
     /* GET ALL EVENT FROM ONE GAME [ALL]*/
     @Get('game/:id')
     async getFromGame(
-        @Param('id') id: string,
+        @Param('id') id: number,
     ): Promise<EventEntity[]>{
         return await this.eventService.getFromGames(id);
     }
@@ -69,7 +69,7 @@ export class EventController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async update(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @Body() updateEventDto: UpdateEventDto,
         @GetUser() user: UserEntity,
     ): Promise<any>{
@@ -85,7 +85,7 @@ export class EventController {
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
     async delete(
-        @Param('id') id: string,
+        @Param('id') id: number,
         @GetUser() user: UserEntity,
     ): Promise<any>{
         return await this.eventService.delete(user, id);

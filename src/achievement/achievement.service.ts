@@ -36,7 +36,7 @@ export class AchievementService {
 
     /* GET A ACHIEVEMENT WITH ID */
     async get(
-        id: string
+        id: number
     ): Promise<AchievementEntity>{
         const achievement = await this.microDev.send(
             { cmd: 'achievement_get' }, { id }).toPromise();
@@ -48,7 +48,7 @@ export class AchievementService {
 
      /* GET FROM GAME */
     async getFromGame(
-        id: string
+        id: number
     ): Promise<AchievementEntity[]>{
         const game = await this.gameService.get(id);
         if (!game) {
@@ -63,7 +63,7 @@ export class AchievementService {
     async update(
         updateAchievementDto: UpdateAchievementDto,
         user: UserEntity,
-        id: string,
+        id: number,
         file?: any): Promise<any>{
         const { game_id } = updateAchievementDto;
         let game = null;
@@ -77,7 +77,7 @@ export class AchievementService {
     }
 
     /* CHECK PROPERTY ACHIEVEMENT */
-    async delete(id: string, user: UserEntity): Promise<any>{
+    async delete(id: number, user: UserEntity): Promise<any>{
         const achievement = await this.check(id, user);
         return await this.microDev.send({ cmd: 'achievement_delete' }, { achievement , user }).toPromise();
     }
@@ -85,7 +85,7 @@ export class AchievementService {
     
     
     /* CHECK PROPERTY ACHIEVEMENT */
-    async check(id: string, user: UserEntity): Promise<AchievementEntity>{
+    async check(id: number, user: UserEntity): Promise<AchievementEntity>{
         const achievement = await this.microDev.send(
             { cmd: 'achievement_check' }, { id, user }
         ).toPromise();
