@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt'
 import { CreateUserDto } from './dto/createUser.dto';
@@ -7,31 +7,26 @@ import { UserEntity } from 'src/user/entities/user.entity';
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('MICRO-ADMIN') private readonly microAdmin: ClientProxy,
+        @Inject('MICRO-ADMIN') private microAdmin: ClientProxy,
         @Inject('MICRO-DEV') private readonly microDev: ClientProxy,
         private readonly jwtService: JwtService,
     ) { }
 
     async validateUser(id_azure: string, microservice: string): Promise<UserEntity>{
-        try {
-            let user: UserEntity;
-            if (microservice === 'MICRO-DEV') {
-                user = await this.microDev.send({ cmd: 'user_get' }, { id_azure }).toPromise();
-            } else {
-                user = await this.microAdmin.send({ cmd: 'admin_get' }, { id_azure }).toPromise();
-            }
-            if (!user) {
-                return null;
-            }
-            return user;
-        } catch (e) {
-            Logger.log(e);
-            throw e;
+        let user: any;
+        if (microservice === 'MICRO-DEV') {
+            user = await this.microDev.send({ cmd: 'user_get' }, { id_azure }).toPromise();
+        } else {
+            user = await this.microAdmin.send({ cmd: 'admin_get' }, { id_azure }).toPromise();
         }
+        if (!user) {
+            return null;
+        }
+        return user;
     }
 
     
-    async profile(id: string, microservice: string): Promise<UserEntity>{
+    async profile(id: number, microservice: string): Promise<UserEntity>{
         let user: UserEntity;
         if (microservice === 'MICRO-DEV') {
             user = await this.microDev.send({ cmd: 'user_get_id' }, { id }).toPromise();
@@ -63,6 +58,7 @@ export class AuthService {
     async AdminLogin(createUserDto: CreateUserDto): Promise<any>{
         const { id_azure } = createUserDto;
         const user = await this.validateUser(id_azure, 'MICRO-ADMIN');
+        console.log(user)
         if (!user) {
             await this.microAdmin.send({ cmd: 'admin_store' }, { createUserDto }).toPromise();
         }

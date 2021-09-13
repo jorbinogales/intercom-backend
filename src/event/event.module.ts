@@ -12,7 +12,7 @@ import { EventService } from './event.service';
     AuthModule,
     GameModule,
     GameUserModule,
-    ClientsModule.register(GatewayOptions),
+    ClientsModule.registerAsync(GatewayOptions),
    ],
   controllers: [EventController],
   providers: [EventService],

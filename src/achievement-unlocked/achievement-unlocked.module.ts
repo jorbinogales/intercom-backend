@@ -12,7 +12,7 @@ import { AchievementUnlockedService } from './achievement-unlocked.service';
     AuthModule,
     GameUserModule,
     AchievementModule,
-    ClientsModule.register(GatewayOptions),
+    ClientsModule.registerAsync(GatewayOptions),
   ],
   controllers: [AchievementUnlockedController],
   providers: [AchievementUnlockedService],

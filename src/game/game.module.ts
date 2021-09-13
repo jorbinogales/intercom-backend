@@ -10,7 +10,7 @@ import { GameService } from './game.service';
   imports: [
     AuthModule,
     CategoryModule,
-    ClientsModule.register(GatewayOptions)
+    ClientsModule.registerAsync(GatewayOptions)
    ],
   controllers: [GameController],
   providers: [GameService],

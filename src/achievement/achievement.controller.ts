@@ -9,6 +9,7 @@ import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
 import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
+import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/createAchievement.dto';
 import { UpdateAchievementDto } from './dto/updateAchievement.dto';
@@ -30,7 +31,9 @@ export class AchievementController {
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'icon', maxCount: 1 },
         ],
-        PictureFileConfig 
+        {
+            fileFilter: PictureFilterFile
+        } 
     ))
     @UploadFileNestjs('icon')
     async store(
@@ -80,7 +83,10 @@ export class AchievementController {
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'icon', maxCount: 1 },
         ],
-        PictureFileConfig 
+        {
+            fileFilter: PictureFilterFile
+            
+        } 
     ))
     @UploadFileNestjs('icon')
     async update(

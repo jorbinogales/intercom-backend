@@ -12,7 +12,7 @@ import { ScoreService } from './score.service';
     AuthModule,
     GameUserModule,
     LeaderboardModule,
-    ClientsModule.register(GatewayOptions),
+    ClientsModule.registerAsync(GatewayOptions),
   ],
   controllers: [ScoreController],
   providers: [ScoreService],

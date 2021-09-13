@@ -7,15 +7,13 @@ import { JwtStrategy } from './strategy/jwt.strategy';
 import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { RolesGuard } from './guards/role.guard';
+import { JwtOptions } from 'src/utils/jwt/JwtOptions';
 
 @Module({
   imports: [
     PassportModule,
-    ClientsModule.register(GatewayOptions),
-    JwtModule.register({
-      secret: 'yoursecret',
-      signOptions: { expiresIn: '3600s'}
-    })
+    ClientsModule.registerAsync(GatewayOptions),
+    JwtModule.registerAsync(JwtOptions)
   ],
   providers: [AuthService, JwtStrategy, RolesGuard],
   controllers: [AuthController],

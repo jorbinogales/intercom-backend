@@ -26,9 +26,10 @@ export class RolesGuard implements CanActivate {
       
     const request = context.switchToHttp().getRequest();
     const user: UserEntity = request.user;
+    console.log(user);
     const microservice: string = request.user.microservice;
 
-    return this.authService.profile(user.id, microservice).then((user: UserEntity) => {
+    return this.authService.profile(1, microservice).then((user: UserEntity) => {
         let hasPermission: boolean = false;
         let role: RoleEntity[] = user.roles;
         role.forEach((userRole) => {

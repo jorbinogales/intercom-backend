@@ -10,7 +10,7 @@ import { GatewayOptions } from 'src/utils/gateway/gateway';
   imports: [
     AuthModule,
     GameModule,
-    ClientsModule.register(GatewayOptions),
+    ClientsModule.registerAsync(GatewayOptions),
   ],
   providers: [AchievementService],
   controllers: [AchievementController],

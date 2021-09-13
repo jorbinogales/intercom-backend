@@ -16,7 +16,7 @@ require('dotenv').config();
 
 @Module({
   imports: [
-    EasyconfigModule.register({path: `environment/.env.${process.env.NODE_ENV}`, safe: true}),
+    EasyconfigModule.register({ path: `environment/.env.${process.env.NODE_ENV}`, safe: true }),
     CategoryModule,
     GameModule,
     AuthModule,

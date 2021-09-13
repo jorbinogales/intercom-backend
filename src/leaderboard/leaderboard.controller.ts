@@ -9,6 +9,7 @@ import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
 import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
+import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';
 import { UpdateLeaderboardDto } from './dto/updateLeaderboard.dto';
 import { LeaderBoardEntity } from './entities/leaderboard.entity';
@@ -25,7 +26,7 @@ export class LeaderboardController {
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Create a Leaderboard [ONLY DEV]' })
     @UseInterceptors(
-        FileInterceptor('icon', PictureFileConfig)
+        FileInterceptor('icon', { fileFilter: PictureFilterFile})
     )
     @UploadFileNestjs('icon')
     @UseGuards(RolesGuard)
@@ -71,7 +72,7 @@ export class LeaderboardController {
     @ApiBearerAuth()
     @ApiOperation({ summary: 'Upadate a Leaderboard [ONLY DEV]' })
     @UseInterceptors(
-        FileInterceptor('icon', PictureFileConfig)
+        FileInterceptor('icon', { fileFilter: PictureFilterFile})
     )
     @UploadFileNestjs('icon')
     @UseGuards(RolesGuard)

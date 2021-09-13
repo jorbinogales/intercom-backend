@@ -1,10 +1,13 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { CategoryService } from './../category/category.service';
 import { UserEntity } from './../user/entities/user.entity';
 import { CreateGameDto } from './dto/createGame.dto';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { GameEntity } from './entities/game.entity';
+import { PictureFileConfig } from './../utils/config/uploadfile.config';
+import * as multerGoogleStorage from 'multer-google-storage';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class GameService {
@@ -15,15 +18,20 @@ export class GameService {
     async store(
         createGameDto: CreateGameDto,
         user: UserEntity,
-        icon: string,
-        image: string,
-        screenshots: Object,
+        req: any,
     ): Promise<any>{
+        if (req.fileValidationError) {
+            throw new BadRequestException('El formato del archivo no es aceptable')
+        }
         const { category_id } = createGameDto;
         await this.categoryService.get(category_id)
+        // const screenshots = files.screenshots;
+        // const icon = files.icon[0].path;
+        // const image = files.image[0].path;
+
         return this.microDev.send(
             { cmd: 'game_store' },
-            { createGameDto, user, icon, image, screenshots });
+            { createGameDto, user });
     }
 
     /* GET  GAME */
@@ -84,3 +92,5 @@ export class GameService {
         return this.microDev.send({ cmd: 'game_all' }, { });
     }
 }
+
+

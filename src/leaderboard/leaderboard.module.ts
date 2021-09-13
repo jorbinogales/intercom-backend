@@ -10,7 +10,7 @@ import { LeaderboardService } from './leaderboard.service';
   imports: [
       AuthModule,
       GameModule,
-      ClientsModule.register(GatewayOptions),
+      ClientsModule.registerAsync(GatewayOptions),
   ],
   controllers: [LeaderboardController],
   providers: [LeaderboardService],

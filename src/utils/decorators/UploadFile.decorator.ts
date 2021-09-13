@@ -19,6 +19,10 @@ export const UploadFileNestjs = (
                 [icon]: {
                     type: 'string',
                     format: 'binary',
+                },
+                [screenshots]: {
+                    type: 'string',
+                    format: 'binary',
                 }
             },
         },

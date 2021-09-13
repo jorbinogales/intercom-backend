@@ -5,15 +5,14 @@ import { RolesGuard } from './../auth/guards/role.guard';
 import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
 import { Roles } from './../auth/enum/roles';
 import { hasRoles } from './../auth/decorators/role.decorator';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { PictureFileConfig } from './../utils/config/uploadfile.config';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 import { GameService } from './game.service';
 import { GetUser } from './../auth/decorators/user.decorator';
 import { UserEntity } from './../user/entities/user.entity';
 import { GameEntity } from './entities/game.entity';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { UploadFileNestjs } from '../utils/decorators/UploadFile.decorator';
-
+import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
 
 @ApiTags('Game')
 @Controller('game')
@@ -30,20 +29,20 @@ export class GameController {
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
     @hasRoles(Roles.Developer)
-    @UseInterceptors(FileFieldsInterceptor(
-        [ { name: 'image' }, { name: 'icon' }, { name: 'screenshots'}],
-        PictureFileConfig,
-    ))
+    @UseInterceptors(
+        FileFieldsInterceptor(
+            [{ name: 'image', maxCount: 1, }, { name: 'icon', maxCount: 1, }, { name: 'screenshots', maxCount: 5 }],
+            ValidatedFileConfig
+        )
+    )
     @UploadFileNestjs('image', 'icon', 'screenshots')
     async store(
+        @Request() req: any,
         @Body() CreateGameDto: CreateGameDto,
-        @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File, screenshots : Express.Multer.File  },
+        // @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File, screenshots : Express.Multer.File  },
         @GetUser() user: UserEntity,
     ): Promise<any>{
-        const screenshots = files.screenshots;
-        const icon = files.icon[0].path;
-        const image = files.image[0].path;
-        return await this.gameService.store(CreateGameDto, user, icon, image, screenshots);
+        return await this.gameService.store(CreateGameDto, user, req);
     }
 
     /* GET [ ALL ]*/
@@ -134,7 +133,7 @@ export class GameController {
             { name: 'icon', maxCount: 1, },
             { name: 'screenshots', maxCount: 5 }
         ],
-        PictureFileConfig,
+         ValidatedFileConfig
     ))
     @UploadFileNestjs('image')
     async update(

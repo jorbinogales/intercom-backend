@@ -7,7 +7,6 @@ export const GatewayOptions: ClientsModuleAsyncOptions = [
         imports: [ConfigModule],
         inject: [ConfigService],
         useFactory: async (configService: ConfigService) => {
-            console.log(configService.get<string>('MICRO_ADMIN_HOST'))
             return {
                 name: 'MICRO-ADMIN',
                 transport: Transport.TCP,
@@ -23,7 +22,6 @@ export const GatewayOptions: ClientsModuleAsyncOptions = [
         imports: [ConfigModule],
         inject: [ConfigService],
         useFactory: async (configService: ConfigService) => {
-             console.log(configService.get<string>('MICRO_DEV_HOST'))
             return {
                 name: 'MICRO-DEV',
                 transport: Transport.TCP,
