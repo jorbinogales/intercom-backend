@@ -7,7 +7,6 @@ import { Roles } from 'src/auth/enum/roles';
 import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
-import { PictureFileConfig } from 'src/utils/config/uploadfile.config';
 import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
 import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';

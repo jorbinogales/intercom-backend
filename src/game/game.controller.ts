@@ -13,12 +13,16 @@ import { GameEntity } from './entities/game.entity';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { UploadFileNestjs } from '../utils/decorators/UploadFile.decorator';
 import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
+import { CategoryService } from 'src/category/category.service';
+import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 
 @ApiTags('Game')
 @Controller('game')
 export class GameController {
 
-    constructor(private readonly gameService: GameService) { }
+    constructor(
+        private readonly gameService: GameService
+    ) { }
 
     /* STORE  [ ONLY DEV ]*/
     @Post('')
@@ -39,7 +43,6 @@ export class GameController {
     async store(
         @Request() req: any,
         @Body() CreateGameDto: CreateGameDto,
-        // @UploadedFiles() files: { image: Express.Multer.File, icon : Express.Multer.File, screenshots : Express.Multer.File  },
         @GetUser() user: UserEntity,
     ): Promise<any>{
         return await this.gameService.store(CreateGameDto, user, req);
@@ -139,10 +142,8 @@ export class GameController {
     async update(
         @Param('id') id: number,
         @Body() UpdateGameDto: UpdateGameDto,
-        @UploadedFiles() files: { picture?: Express.Multer.File[], icon?: Express.Multer.File[] },
         @GetUser() user: UserEntity
     ): Promise<any>{
-        console.log(files);
         return await this.gameService.update(UpdateGameDto, user, id);
     }
     

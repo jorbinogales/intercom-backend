@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, IsBooleanString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, IsUrl, MaxLength, MinLength, IsBooleanString, IsNumberString } from 'class-validator';
 
 
 export class CreateGameDto {
 
-    @IsString()
+    @IsNumberString()
     @IsNotEmpty()
     @ApiProperty({ type: 'number', description: 'id category', default: 1})
     readonly category_id: number;

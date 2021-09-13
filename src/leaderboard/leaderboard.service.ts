@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { UploadFileDto } from 'src/file/dto/uploadFile.dto';
 import { GameService } from 'src/game/game.service';
 import { UserEntity } from 'src/user/entities/user.entity';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';
@@ -89,5 +90,10 @@ export class LeaderboardService {
             throw new NotFoundException(`This leaderboard is not your property`)
         }
         return leaderboard;
+    }
+
+    /* ADD IMAGE */
+    async addImage(uploadFileDto: UploadFileDto, icon: any) {
+        
     }
 }

@@ -4,7 +4,7 @@ import {  Entity } from "typeorm";
 
 @Entity('category')
 export class CategoryEntity{
-    id: string;
+    id: number;
     name: string;
     created_by: UserEntity;
     updated_by: UserEntity;

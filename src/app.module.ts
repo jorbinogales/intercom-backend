@@ -12,6 +12,8 @@ import { ScoreModule } from './score/score.module';
 import { EventModule } from './event/event.module';
 import { EventPlayerModule } from './event-player/event-player.module';
 import { EasyconfigModule } from 'nestjs-easyconfig';
+import { ScreenshotsModule } from './screenshots/screenshots.module';
+import { FileModule } from './file/file.module';
 require('dotenv').config();
 
 @Module({
@@ -29,6 +31,8 @@ require('dotenv').config();
     ScoreModule,
     EventModule,
     EventPlayerModule,
+    ScreenshotsModule,
+    FileModule,
   ]
     
 })

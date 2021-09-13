@@ -6,18 +6,19 @@ import {
 } from "typeorm";
 
 @Entity('game')
-export class GameEntity{
+export class GameEntity {
 
     id: number;
-    category: CategoryEntity;
-    achievements: AchievementEntity[];
+    category_id: any;
+    achievements_value: AchievementEntity[];
+    screenshots_value: [];
     title: string;
     description: string;
     icon: string;
-    picture: string;
-    googlePlay: string;
-    playStore: string;
-    oculusStore: string;
+    image: string;
+    google_play: string;
+    play_store: string;
+    oculus_store: string;
     status: number;
     populity: number;
     created_by: UserEntity;
@@ -26,5 +27,4 @@ export class GameEntity{
     created_at: Date;
     updated_at: Date;
     deleted_at: Date;
-
 }

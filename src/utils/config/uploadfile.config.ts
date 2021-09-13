@@ -3,8 +3,9 @@ import { RenameImage } from "../helpers/renameFileName.filter";
 import * as multerGoogleStorage from 'multer-google-storage';
 import { MulterModuleAsyncOptions } from "@nestjs/platform-express";
 import { ConfigService } from "@nestjs/config";
+import { PictureFilterFile } from "../helpers/picture.filter";
 
-export const PictureFileConfig: MulterModuleAsyncOptions = {
+export const UploadFileConfig: MulterModuleAsyncOptions = {
     useFactory: async (configService: ConfigService) => {
         return {
             storage:
@@ -14,6 +15,10 @@ export const PictureFileConfig: MulterModuleAsyncOptions = {
                 keyFilename: join(__dirname, '..', configService.get<string>('CLOUD_KEY_JSON')),
                 fileName: RenameImage,
             }),
+             limits: {
+                fileSize: 2400000,
+            },
+            fileFilter: PictureFilterFile,
         }
     }
 }
