@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
+import { FileModule } from 'src/file/file.module';
 import { GatewayOptions } from 'src/utils/gateway/gateway';
 import { AuthModule } from './../auth/auth.module';
 import { CategoryModule } from './../category/category.module';
@@ -10,6 +11,7 @@ import { GameService } from './game.service';
   imports: [
     AuthModule,
     CategoryModule,
+    forwardRef(() => FileModule),
     ClientsModule.registerAsync(GatewayOptions)
    ],
   controllers: [GameController],

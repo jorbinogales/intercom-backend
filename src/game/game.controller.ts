@@ -5,7 +5,7 @@ import { RolesGuard } from './../auth/guards/role.guard';
 import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
 import { Roles } from './../auth/enum/roles';
 import { hasRoles } from './../auth/decorators/role.decorator';
-import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { GameService } from './game.service';
 import { GetUser } from './../auth/decorators/user.decorator';
 import { UserEntity } from './../user/entities/user.entity';
@@ -13,8 +13,6 @@ import { GameEntity } from './entities/game.entity';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { UploadFileNestjs } from '../utils/decorators/UploadFile.decorator';
 import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
-import { CategoryService } from 'src/category/category.service';
-import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 
 @ApiTags('Game')
 @Controller('game')

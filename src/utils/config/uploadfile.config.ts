@@ -2,13 +2,15 @@ import { join } from "path";
 import { RenameImage } from "../helpers/renameFileName.filter";
 import * as multerGoogleStorage from 'multer-google-storage';
 import { MulterModuleAsyncOptions } from "@nestjs/platform-express";
-import { ConfigService } from "@nestjs/config";
+import { ConfigModule, ConfigService } from "@nestjs/config";
 import { PictureFilterFile } from "../helpers/picture.filter";
 
 export const UploadFileConfig: MulterModuleAsyncOptions = {
-    useFactory: async (configService: ConfigService) => {
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
         return {
-            storage:
+           storage:
             multerGoogleStorage.storageEngine({
                 projectId: configService.get<string>('CLOUD_PROYECT_ID'),
                 bucket: configService.get<string>('CLOUD_BUCKET'),
@@ -20,5 +22,5 @@ export const UploadFileConfig: MulterModuleAsyncOptions = {
             },
             fileFilter: PictureFilterFile,
         }
-    }
+      }
 }

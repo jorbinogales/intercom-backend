@@ -1,17 +1,21 @@
-import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { UploadFileDto } from 'src/file/dto/uploadFile.dto';
+import { FileService } from 'src/file/file.service';
 import { CategoryService } from './../category/category.service';
 import { UserEntity } from './../user/entities/user.entity';
 import { CreateGameDto } from './dto/createGame.dto';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { GameEntity } from './entities/game.entity';
 
+
 @Injectable()
 export class GameService {
     constructor(
         @Inject('MICRO-DEV') private microDev: ClientProxy,
         private readonly categoryService: CategoryService,
+        @Inject(forwardRef(() => FileService)) private readonly fileService: FileService,
+
     ) { }
     
     /* CREATE GAME */
@@ -25,6 +29,7 @@ export class GameService {
         }
         const { category_id } = createGameDto;
         await this.categoryService.get(category_id)
+
         return this.microDev.send(
             { cmd: 'game_store' },
             { createGameDto, user });
@@ -90,14 +95,16 @@ export class GameService {
     }
 
     /* ADD IMAGE FOR GAME */
-    async addImage(uploadFileDto: UploadFileDto, user: UserEntity, image?: string, icon?: string, screenshots?: string[]): Promise<any>{
+    async addImage(uploadFileDto: UploadFileDto, user: UserEntity, image?: any, icon?: any, screenshots?: any[]): Promise<any>{
         const { entity_id } = uploadFileDto;
         const game = await this.check(entity_id, user);
-        console.log(game);
-        return await this.microDev.send(
+        const response =  await this.microDev.send(
             { cmd: 'game_add_image' },
             { uploadFileDto, game, user, image, icon, screenshots }
         ).toPromise();
+        await this.fileService.removeFiles(response[0].image_before);
+        await this.fileService.removeFiles(response[1].screenshots_before);
+        return response;
     }
 
     /* GET CAME WITH CATEGORY DATA */
