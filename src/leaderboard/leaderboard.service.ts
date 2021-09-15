@@ -17,13 +17,12 @@ export class LeaderboardService {
     /* STORE */
     async store(
         createLeaderBoarDto: CreateLeaderBoardDto,
-        user: UserEntity,
-        file: any): Promise<any> {
+        user: UserEntity): Promise<any> {
         const { game_id } = createLeaderBoarDto;
         const game = await this.gameService.check(game_id, user);
         return await this.microDev.send(
             { cmd: 'leaderboard_store' },
-            { createLeaderBoarDto, game, user, file }
+            { createLeaderBoarDto, game, user }
         ).toPromise();
     }
 
@@ -33,7 +32,7 @@ export class LeaderboardService {
     }
 
     /* GET A LEADERBOARD WITH ID */
-    async get(id: string): Promise<LeaderBoardEntity>{
+    async get(id: number): Promise<LeaderBoardEntity>{
         const leaderboard = await this.microDev.send(
             { cmd: 'leaderboard_get' },
             { id }
@@ -57,8 +56,7 @@ export class LeaderboardService {
     async update(
         updateLeaderboardDto: UpdateLeaderboardDto,
         user: UserEntity,
-        id: number,
-        file: any): Promise<any>{
+        id: number): Promise<any>{
         const { game_id } = updateLeaderboardDto;
         const leaderboard = await this.check(id, user);
         let game = null;
@@ -67,7 +65,7 @@ export class LeaderboardService {
         }
         return await this.microDev.send(
             { cmd: 'leaderboard_update' },
-            { updateLeaderboardDto, leaderboard, game, user, file }
+            { updateLeaderboardDto, leaderboard, game, user }
         ).toPromise();
     }
 

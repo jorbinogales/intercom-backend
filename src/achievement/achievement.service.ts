@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { GameService } from 'src/game/game.service';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -16,14 +16,13 @@ export class AchievementService {
     /* STORE */
     async store(
         createAchievementDto: CreateAchievementDto,
-        file: any,
         user: UserEntity): Promise<any>{
         const { game_id } = createAchievementDto;
         const game = await this.gameService.check(game_id, user);
         if (game) {
             return await this.microDev.send(
                 { cmd: 'achievement_store' },
-                { createAchievementDto, user, game, file }
+                { createAchievementDto, user, game }
             ).toPromise();
         }
         return null;
@@ -81,8 +80,6 @@ export class AchievementService {
         const achievement = await this.check(id, user);
         return await this.microDev.send({ cmd: 'achievement_delete' }, { achievement , user }).toPromise();
     }
-    
-    
     
     /* CHECK PROPERTY ACHIEVEMENT */
     async check(id: number, user: UserEntity): Promise<AchievementEntity>{

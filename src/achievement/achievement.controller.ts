@@ -7,8 +7,8 @@ import { Roles } from 'src/auth/enum/roles';
 import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { RolesGuard } from 'src/auth/guards/role.guard';
 import { UserEntity } from 'src/user/entities/user.entity';
+import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
 import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
-import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
 import { AchievementService } from './achievement.service';
 import { CreateAchievementDto } from './dto/createAchievement.dto';
 import { UpdateAchievementDto } from './dto/updateAchievement.dto';
@@ -30,18 +30,14 @@ export class AchievementController {
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'icon', maxCount: 1 },
         ],
-        {
-            fileFilter: PictureFilterFile
-        } 
+        ValidatedFileConfig
     ))
     @UploadFileNestjs('icon')
     async store(
         @Body() CreateAchievementDto: CreateAchievementDto,
-        @UploadedFile() file: { icon: Express.Multer.File[] },
         @GetUser() user: UserEntity,
     ): Promise<any>{
-        console.log(file);
-        return await this.achievementService.store(CreateAchievementDto, file, user);
+        return await this.achievementService.store(CreateAchievementDto, user);
     }
 
     /* GET ALL ACHIEVEMENT CREATED [ ONLY DEV ] */
@@ -82,10 +78,7 @@ export class AchievementController {
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'icon', maxCount: 1 },
         ],
-        {
-            fileFilter: PictureFilterFile
-            
-        } 
+        ValidatedFileConfig
     ))
     @UploadFileNestjs('icon')
     async update(

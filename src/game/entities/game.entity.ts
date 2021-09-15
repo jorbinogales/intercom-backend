@@ -9,7 +9,7 @@ import {
 export class GameEntity {
 
     id: number;
-    category_id: any;
+    category_value: any;
     achievements_value: AchievementEntity[];
     screenshots_value: [];
     title: string;

@@ -34,9 +34,8 @@ export class LeaderboardController {
     async store(
         @Body() createLeaderBoarDto: CreateLeaderBoardDto,
         @GetUser() user: UserEntity,
-        @UploadedFile() file: any
     ): Promise<any> {
-        return await this.leaderService.store(createLeaderBoarDto, user, file);
+        return await this.leaderService.store(createLeaderBoarDto, user);
     }
 
     /* GET ALL LEADERBOARDS CREATED [ONLY DEV]*/
@@ -54,7 +53,7 @@ export class LeaderboardController {
     /* GET A LEADERBOARD [ ALL  ] */
     @Get(':id')
     @ApiOperation({ summary: 'Get a leaderboard with id [ALL]' })
-    async get(@Param('id') id:string): Promise<LeaderBoardEntity> {
+    async get(@Param('id') id:number): Promise<LeaderBoardEntity> {
         return await this.leaderService.get(id);
     }
 
@@ -81,9 +80,8 @@ export class LeaderboardController {
         @Param('id') id:number,
         @Body() updateLeaderboardDto: UpdateLeaderboardDto,
         @GetUser() user: UserEntity,
-        @UploadedFile() file: any
     ): Promise<any> {
-        return await this.leaderService.update(updateLeaderboardDto, user, id, file);
+        return await this.leaderService.update(updateLeaderboardDto, user, id);
     }
 
      /* DELETE A LEADERBOARD [ ONLY DEV ] */

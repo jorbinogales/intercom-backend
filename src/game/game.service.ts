@@ -14,8 +14,6 @@ export class GameService {
     constructor(
         @Inject('MICRO-DEV') private microDev: ClientProxy,
         private readonly categoryService: CategoryService,
-        @Inject(forwardRef(() => FileService)) private readonly fileService: FileService,
-
     ) { }
     
     /* CREATE GAME */
@@ -92,19 +90,6 @@ export class GameService {
     /* GET ALL GAMES */
     async all() {
         return this.microDev.send({ cmd: 'game_all' }, {});
-    }
-
-    /* ADD IMAGE FOR GAME */
-    async addImage(uploadFileDto: UploadFileDto, user: UserEntity, image?: any, icon?: any, screenshots?: any[]): Promise<any>{
-        const { entity_id } = uploadFileDto;
-        const game = await this.check(entity_id, user);
-        const response =  await this.microDev.send(
-            { cmd: 'game_add_image' },
-            { uploadFileDto, game, user, image, icon, screenshots }
-        ).toPromise();
-        await this.fileService.removeFiles(response[0].image_before);
-        await this.fileService.removeFiles(response[1].screenshots_before);
-        return response;
     }
 
     /* GET CAME WITH CATEGORY DATA */

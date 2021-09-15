@@ -10,3 +10,10 @@ export enum FileModelName{
     ACHIEVEMENT = 'achievement',
     LEADERBOARD = 'leaderboard',
 }
+
+export enum DevAddImage{
+    USER = 'user_add_image',
+    GAME = 'game_add_image',
+    ACHIEVEMENT = 'achievement_add_image',
+    LEADERBOARD = 'leaderboard_add_image',
+}

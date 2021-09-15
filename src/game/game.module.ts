@@ -1,17 +1,17 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import { FileModule } from 'src/file/file.module';
-import { GatewayOptions } from 'src/utils/gateway/gateway';
+import { GatewayOptions } from './../utils/gateway/gateway';
 import { AuthModule } from './../auth/auth.module';
 import { CategoryModule } from './../category/category.module';
 import { GameController } from './game.controller';
 import { GameService } from './game.service';
+import { ConfigurationModule } from 'src/configuration/config.module';
 
 @Module({
   imports: [
+    ConfigurationModule,
     AuthModule,
     CategoryModule,
-    forwardRef(() => FileModule),
     ClientsModule.registerAsync(GatewayOptions)
    ],
   controllers: [GameController],

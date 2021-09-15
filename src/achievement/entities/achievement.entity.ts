@@ -6,14 +6,13 @@ import { TypeAchievementModel } from "../model/achievement.model";
 
 @Entity('achievement')
 export class AchievementEntity{
-
-    id: string;
-    game: GameEntity;
+    id: number;
+    game_value: GameEntity;
     name: string;
     icon: string;
     description: string;
     type: TypeAchievementModel;
-    achievement: AchievementUnlockedEntity[];
+    achievement_value: AchievementUnlockedEntity[];
     created_by: UserEntity;
     updated_by: UserEntity;
     deleted_by: UserEntity;

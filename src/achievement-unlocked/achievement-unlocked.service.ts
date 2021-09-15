@@ -22,8 +22,8 @@ export class AchievementUnlockedService {
         user: UserEntity): Promise<any>{
         const { achievement_id, user_id } = unlockedAchievementDto;
         const achievement = await this.achievementService.check(achievement_id, user);
-        const { game } = achievement;
-        const gameUser = await this.gameUser.checkPlaying(game, user_id);
+        const { game_value } = achievement;
+        const gameUser = await this.gameUser.checkPlaying(game_value, user_id);
         const unlocked = await this.check(achievement, gameUser);
         if (!gameUser) {
             throw new BadRequestException(`This user is not playing this game`);

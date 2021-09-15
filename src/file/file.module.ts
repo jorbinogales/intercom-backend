@@ -1,17 +1,24 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { FileController } from './file.controller';
 import { FileService } from './file.service';
-import { GameModule } from '../game/game.module';
-import { AuthModule } from '../auth/auth.module';
 import { UploadFileConfig } from 'src/utils/config/uploadfile.config';
+import { ConfigurationModule } from 'src/configuration/config.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { GameModule } from 'src/game/game.module';
+import { ClientsModule } from '@nestjs/microservices';
+import { GatewayOptions } from 'src/utils/gateway/gateway';
+import { AchievementModule } from 'src/achievement/achievement.module';
+import { LeaderboardModule } from 'src/leaderboard/leaderboard.module';
 
 @Module({
   imports: [
-    ConfigModule,
+    ClientsModule.registerAsync(GatewayOptions),
+    ConfigurationModule,
     AuthModule,
-    forwardRef(() => GameModule),
+    GameModule,
+    AchievementModule,
+    LeaderboardModule,
     MulterModule.registerAsync(UploadFileConfig),
   ],
   controllers: [FileController],

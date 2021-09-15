@@ -14,11 +14,13 @@ import { EventPlayerModule } from './event-player/event-player.module';
 import { EasyconfigModule } from 'nestjs-easyconfig';
 import { ScreenshotsModule } from './screenshots/screenshots.module';
 import { FileModule } from './file/file.module';
+import { ConfigurationModule } from './configuration/config.module';
 require('dotenv').config();
 
 @Module({
   imports: [
     EasyconfigModule.register({ path: `environment/.env.${process.env.NODE_ENV}`, safe: true }),
+    ConfigurationModule,
     CategoryModule,
     GameModule,
     AuthModule,
