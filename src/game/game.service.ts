@@ -1,4 +1,10 @@
-import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  forwardRef,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { UploadFileDto } from 'src/file/dto/uploadFile.dto';
 import { FileService } from 'src/file/file.service';
@@ -7,103 +13,117 @@ import { UserEntity } from './../user/entities/user.entity';
 import { CreateGameDto } from './dto/createGame.dto';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { GameEntity } from './entities/game.entity';
-
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class GameService {
-    constructor(
-        @Inject('MICRO-DEV') private microDev: ClientProxy,
-        private readonly categoryService: CategoryService,
-    ) { }
-    
-    /* CREATE GAME */
-    async store(
-        createGameDto: CreateGameDto,
-        user: UserEntity,
-        req: any,
-    ): Promise<any> {
-        if (req.fileValidationError) {
-            throw new BadRequestException('El formato del archivo no es aceptable')
-        }
-        const { category_id } = createGameDto;
-        await this.categoryService.get(category_id)
+  constructor(
+    @Inject('MICRO-DEV') private microDev: ClientProxy,
+    private readonly categoryService: CategoryService,
+  ) {}
 
-        return this.microDev.send(
-            { cmd: 'game_store' },
-            { createGameDto, user });
+  /* CREATE GAME */
+  async store(
+    createGameDto: CreateGameDto,
+    user: UserEntity,
+    req: any,
+  ): Promise<any> {
+    if (req.fileValidationError) {
+      throw new BadRequestException('El formato del archivo no es aceptable');
     }
+    const { category_id } = createGameDto;
+    await this.categoryService.get(category_id);
 
-    /* GET  GAME */
-    async get(id: number): Promise<GameEntity> {
-        const game = await this.microDev.send({ cmd: 'game_get' }, { id }).toPromise();
-        if (!game) {
-            throw new NotFoundException(`Game with ${id} not found`)
-        }
-        return await this.gameCategory(game);
-    }
+    return this.microDev.send({ cmd: 'game_store' }, { createGameDto, user });
+  }
 
-    /* GET ALL GAMES FROM USER */
-    async index(user: UserEntity): Promise<GameEntity[]> {
-        const games: GameEntity[] = await this.microDev.send({ cmd: 'game_user' }, { user }).toPromise();
-        return await this.gameCategory(games);
-    }
+  async indexPaginate(
+    user: UserEntity,
+    page,
+    limit,
+    filtros,
+  ): Promise<Pagination<GameEntity>> {
+    return  await this.microDev
+      .send({ cmd: 'game_user_paginate' }, { user, page, limit, filtros })
+      .toPromise();
+  }
 
-    /* UPDATE A GAME */
-    async update(
-        updateGameDto: UpdateGameDto,
-        user: UserEntity,
-        id: number): Promise<any> {
-        const game = await this.check(id, user);
-        return await this.microDev.send({ cmd: 'game_update' }, { updateGameDto, user, game }).toPromise()
+  /* GET  GAME */
+  async get(id: number): Promise<GameEntity> {
+    const game = await this.microDev
+      .send({ cmd: 'game_get' }, { id })
+      .toPromise();
+    if (!game) {
+      throw new NotFoundException(`Game with ${id} not found`);
     }
+    return await this.gameCategory(game);
+  }
 
-    /* DELETE A GAME */
-    async delete(
-        user: UserEntity,
-        id: number): Promise<any> {
-        const game = await this.check(id, user);
-        return await this.microDev.send({ cmd: 'game_delete' }, { user, game }).toPromise();
-    }
-    
-    /* CHANGE STATUS */
-    async changeSatus(
-        user: UserEntity,
-        id: number): Promise<any> {
-        const game = await this.get(id);
-        return await this.microDev.send({ cmd: 'game_change_status' }, { user, game }).toPromise();
-    }
+  /* GET ALL GAMES FROM USER */
+  async index(user: UserEntity): Promise<GameEntity[]> {
+    const games: GameEntity[] = await this.microDev
+      .send({ cmd: 'game_user' }, { user })
+      .toPromise();
+    return await this.gameCategory(games);
+  }
 
-    /* CHECK PROPERTY A GAME */
-    async check(
-        id: number,
-        user: UserEntity,
-    ): Promise<GameEntity> {
-        const game = await this.microDev.send(
-            { cmd: 'game_check_property' },
-            { user, id }).toPromise();
-        if (!game) {
-            throw new NotFoundException(`This game is not your property`);
-        }
-        return game;
-    }
+  /* UPDATE A GAME */
+  async update(
+    updateGameDto: UpdateGameDto,
+    user: UserEntity,
+    id: number,
+  ): Promise<any> {
+    const game = await this.check(id, user);
+    return await this.microDev
+      .send({ cmd: 'game_update' }, { updateGameDto, user, game })
+      .toPromise();
+  }
 
-    /* GET ALL GAMES */
-    async all() {
-        return this.microDev.send({ cmd: 'game_all' }, {});
-    }
+  /* DELETE A GAME */
+  async delete(user: UserEntity, id: number): Promise<any> {
+    const game = await this.check(id, user);
+    return await this.microDev
+      .send({ cmd: 'game_delete' }, { user, game })
+      .toPromise();
+  }
 
-    /* GET CAME WITH CATEGORY DATA */
-    async gameCategory(games: any): Promise<any> {
-        const games_array: GameEntity[] = [];
-        for (let game of games) {
-            const category_id = game.category_id;
-            const category = await this.categoryService.get(category_id);
-            game.category_id = category;
-            games_array.push(game);
-        }
-        return games_array
+  /* CHANGE STATUS */
+  async changeSatus(user: UserEntity, id: number): Promise<any> {
+    const game = await this.get(id);
+    return await this.microDev
+      .send({ cmd: 'game_change_status' }, { user, game })
+      .toPromise();
+  }
+
+  /* CHECK PROPERTY A GAME */
+  async check(id: number, user: UserEntity): Promise<GameEntity> {
+    const game = await this.microDev
+      .send({ cmd: 'game_check_property' }, { user, id })
+      .toPromise();
+    if (!game) {
+      throw new NotFoundException(`This game is not your property`);
     }
-    
+    return game;
+  }
+
+  /* GET ALL GAMES */
+  async all() {
+    return this.microDev.send({ cmd: 'game_all' }, {});
+  }
+
+  /* GET CAME WITH CATEGORY DATA */
+  async gameCategory(games: any): Promise<any> {
+    const games_array: GameEntity[] = [];
+    for (let game of games) {
+      const category_id = game.category_id;
+      const category = await this.categoryService.get(category_id);
+      game.category_id = category;
+      games_array.push(game);
+    }
+    return games_array;
+  }
 }
-
-
