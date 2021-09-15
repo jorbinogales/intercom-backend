@@ -85,7 +85,7 @@ export class GameController {
   async getMyGamesPaginate(
     @GetUser() user: UserEntity,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 9,
+    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
     @Body() filtros: any,
   ): Promise<Pagination<GameEntity>> {
     console.log(filtros);
