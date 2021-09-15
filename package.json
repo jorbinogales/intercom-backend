@@ -42,6 +42,7 @@
     "mysql2": "^2.3.0",
     "nestjs-easyconfig": "^2.4.2",
     "nestjs-joi": "^1.4.0",
+    "nestjs-typeorm-paginate": "^2.6.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
