@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
 import { join } from 'path';
 import { AchievementService } from 'src/achievement/achievement.service';
+import { EventService } from 'src/event/event.service';
 import { GameService } from 'src/game/game.service';
 import { LeaderboardService } from 'src/leaderboard/leaderboard.service';
 import { UserEntity } from 'src/user/entities/user.entity';
@@ -18,9 +19,10 @@ export class FileService {
         private readonly gameService: GameService,
         private readonly achievementService: AchievementService,
         private readonly leaderboardService: LeaderboardService,
+        private readonly eventService: EventService,
     ) { }
     
-    // // /* STORE */
+    /* STORE */
     async store(
         uploadFileDto: UploadFileDto,
         user: UserEntity,
@@ -38,6 +40,9 @@ export class FileService {
         if (entity_name === FileModelName.LEADERBOARD) {
             return await this.addImage(uploadFileDto, user, null, icon, null, DevAddImage.LEADERBOARD );
         }
+        if (entity_name === FileModelName.EVENT) {
+            return await this.addImage(uploadFileDto, user, null, icon, null, DevAddImage.EVENT );
+        }
     }
     
     async removeFiles(files: string[]) {
@@ -46,7 +51,9 @@ export class FileService {
                 keyFilename: join(__dirname, '..', this.configService.get<string>('CLOUD_KEY_JSON')),
             });
             files.map(async (image) => {
-                await storage.bucket(this.configService.get<string>('CLOUD_BUCKET')).file(image).delete();
+                if (image != null) {
+                    await storage.bucket(this.configService.get<string>('CLOUD_BUCKET')).file(image).delete();
+                }
             });
         }
     }
@@ -60,7 +67,7 @@ export class FileService {
         dev?: DevAddImage,
     ): Promise<any>{
         const { entity_id } = uploadFileDto;
-        let response:any;
+        let response: any;
         if (dev === DevAddImage.GAME) {
             const game = await this.gameService.get(entity_id);
             response = await this.microDev.send(
@@ -83,6 +90,13 @@ export class FileService {
             response = await this.microDev.send(
                 { cmd: dev },
                 { uploadFileDto, leaderboard, icon }
+            ).toPromise();
+        }
+        if (dev === DevAddImage.EVENT) {
+            const event = await this.eventService.get(entity_id);
+            response = await this.microDev.send(
+                { cmd: dev },
+                { uploadFileDto, event, icon }
             ).toPromise();
         }
         return response;

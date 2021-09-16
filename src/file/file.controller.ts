@@ -36,7 +36,6 @@ export class FileController {
             image?: Express.Multer.File, icon?: Express.Multer.File, screenshots?: Express.Multer.File[], avatar?: Express.Multer.File,
         }
     ): Promise<any>{
-        console.log(files);
         let screenshots: string[] = [];
         let icon: string, image:string, avatar: string;
         if (files.screenshots) {

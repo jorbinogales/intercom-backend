@@ -9,7 +9,6 @@ import {
   Post,
   Put,
   Request,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
   DefaultValuePipe,
@@ -36,9 +35,7 @@ import { UpdateGameDto } from './dto/updateGame.dto';
 import { UploadFileNestjs } from '../utils/decorators/UploadFile.decorator';
 import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
 import {
-  paginate,
   Pagination,
-  IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 
 @ApiTags('Game')

@@ -8,6 +8,7 @@ import { OrderLeaderBoardModel, TypeLeaderBoardModel } from "../model/leaderboar
 export class LeaderBoardEntity{
 
     id: string;
+    score: string;
     game: GameEntity;
     scores: ScoreEntity[];
     name: string;

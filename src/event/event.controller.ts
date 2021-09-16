@@ -47,7 +47,7 @@ export class EventController {
     @Get(':id')
     @ApiOperation({ summary: 'Get a event with id [ ALL ]' })
     async get(
-        @Param('id') id: string
+        @Param('id') id: number
     ): Promise<EventEntity>{
         return await this.eventService.get(id);
     }

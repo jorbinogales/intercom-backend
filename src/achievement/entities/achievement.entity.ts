@@ -7,6 +7,7 @@ import { TypeAchievementModel } from "../model/achievement.model";
 @Entity('achievement')
 export class AchievementEntity{
     id: number;
+    code: string;
     game_value: GameEntity;
     name: string;
     icon: string;

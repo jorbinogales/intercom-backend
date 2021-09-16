@@ -34,7 +34,7 @@ export class EventService {
     }
 
     /* GET EVENT WITH ID*/
-    async get(id: string): Promise<EventEntity>{
+    async get(id: number): Promise<EventEntity>{
         const event = await this.microDev.send({ cmd: 'event_get' }, { id }).toPromise();
         if(!event){
             throw new NotFoundException(`The event with id ${id} not found`);

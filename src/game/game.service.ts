@@ -14,9 +14,7 @@ import { CreateGameDto } from './dto/createGame.dto';
 import { UpdateGameDto } from './dto/updateGame.dto';
 import { GameEntity } from './entities/game.entity';
 import {
-  paginate,
   Pagination,
-  IPaginationOptions,
 } from 'nestjs-typeorm-paginate';
 
 @Injectable()
@@ -119,9 +117,9 @@ export class GameService {
   async gameCategory(games: any): Promise<any> {
     const games_array: GameEntity[] = [];
     for (let game of games) {
-      const category_id = game.category_id;
-      const category = await this.categoryService.get(category_id);
-      game.category_id = category;
+      const category_value = game.category_value;
+      const category = await this.categoryService.get(category_value);
+      game.category_value = category;
       games_array.push(game);
     }
     return games_array;

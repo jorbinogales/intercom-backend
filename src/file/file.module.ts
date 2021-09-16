@@ -10,6 +10,7 @@ import { ClientsModule } from '@nestjs/microservices';
 import { GatewayOptions } from 'src/utils/gateway/gateway';
 import { AchievementModule } from 'src/achievement/achievement.module';
 import { LeaderboardModule } from 'src/leaderboard/leaderboard.module';
+import { EventModule } from 'src/event/event.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LeaderboardModule } from 'src/leaderboard/leaderboard.module';
     GameModule,
     AchievementModule,
     LeaderboardModule,
+    EventModule,
     MulterModule.registerAsync(UploadFileConfig),
   ],
   controllers: [FileController],
