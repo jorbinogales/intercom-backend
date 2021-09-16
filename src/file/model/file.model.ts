@@ -9,6 +9,7 @@ export enum FileModelName{
     GAME = 'game',
     ACHIEVEMENT = 'achievement',
     LEADERBOARD = 'leaderboard',
+    EVENT = 'event',
 }
 
 export enum DevAddImage{
@@ -16,4 +17,5 @@ export enum DevAddImage{
     GAME = 'game_add_image',
     ACHIEVEMENT = 'achievement_add_image',
     LEADERBOARD = 'leaderboard_add_image',
+    EVENT = 'event_add_image',
 }

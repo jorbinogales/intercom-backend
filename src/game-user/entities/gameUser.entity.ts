@@ -8,7 +8,7 @@ import { UserEntity } from "../../user/entities/user.entity";
 export class GameUserEntity{
 
     id: number;
-    game_id: GameEntity;
+    game_value: GameEntity;
     user_id: string;
     created_by: UserEntity;
     updated_by: UserEntity;

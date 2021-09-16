@@ -6,7 +6,9 @@ import { UserEntity } from "../../user/entities/user.entity";
 @Entity('event')
 export class EventEntity{
     id: string;
+    code: string;
     game: GameEntity;
+    icon: string;
     name: string;
     description: string;
     created_by: UserEntity;
