@@ -66,7 +66,12 @@ export class AchievementController {
   }
 
   @Post('paginate')
-  @ApiOperation({ summary: 'Get a achievement with id [ALL]' })
+  @ApiBasicAuth('XYZ')
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @UseGuards(JwtAuthGuard)
+  @hasRoles(Roles.Developer)
+  @ApiOperation({ summary: 'Get all achievement [ALL]' })
   async getPaginate(
     @GetUser() user: UserEntity,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number = 1,
