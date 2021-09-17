@@ -18,11 +18,13 @@ export class EventPlayerService {
         createEventPlayerDto: CreateEventPlayerDto,
         user: UserEntity
     ): Promise<any>{
-        const { event_id,  user_id } = createEventPlayerDto;
+        const { event_id, user_id } = createEventPlayerDto;
+        console.log(event_id);
         const event = await this.eventService.check(event_id, user);
-        const { game } = event;
-        const gameUser = await this.gameUserService.checkPlaying(game, user_id);
-        console.log(gameUser);
+        console.log(event);
+        const { game_value } = event;
+        console.log(game_value);
+        const gameUser = await this.gameUserService.checkPlaying(game_value, user_id);
         if (!gameUser) {
             throw new BadRequestException(`This user is not playing this game`);
         }
