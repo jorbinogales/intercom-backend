@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "gateway-hub",
+            "script": "npm",
+            "args" : "run start:dev"
+        }
+    ]
+}
