@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from './../user/entities/user.entity';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { UpdateCategoryDto } from './dto/updateCategory.dto';
 import { CategoryEntity } from './entities/category.entity';

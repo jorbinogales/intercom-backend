@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
-import { AuthModule } from 'src/auth/auth.module';
-import { GameModule } from 'src/game/game.module';
-import { GatewayOptions } from 'src/utils/gateway/gateway';
+import { AuthModule } from './../auth/auth.module';
+import { GameModule } from './../game/game.module';
+import { GatewayOptions } from './../utils/gateway/gateway';
 import { GameUserController } from './game-user.controller';
 import { GameUserService } from './game-user.service';
 

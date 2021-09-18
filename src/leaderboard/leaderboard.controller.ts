@@ -20,14 +20,14 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { hasRoles } from 'src/auth/decorators/role.decorator';
-import { GetUser } from 'src/auth/decorators/user.decorator';
-import { Roles } from 'src/auth/enum/roles';
-import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { UserEntity } from 'src/user/entities/user.entity';
-import { UploadFileNestjs } from 'src/utils/decorators/UploadFile.decorator';
-import { PictureFilterFile } from 'src/utils/helpers/picture.filter';
+import { hasRoles } from './../auth/decorators/role.decorator';
+import { GetUser } from './../auth/decorators/user.decorator';
+import { Roles } from './../auth/enum/roles';
+import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
+import { RolesGuard } from './../auth/guards/role.guard';
+import { UserEntity } from './../user/entities/user.entity';
+import { UploadFileNestjs } from './../utils/decorators/UploadFile.decorator';
+import { PictureFilterFile } from './../utils/helpers/picture.filter';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';
 import { UpdateLeaderboardDto } from './dto/updateLeaderboard.dto';
 import { LeaderBoardEntity } from './entities/leaderboard.entity';

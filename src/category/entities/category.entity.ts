@@ -1,5 +1,5 @@
 
-import { UserEntity } from "src/user/entities/user.entity";
+import { UserEntity } from "./../../user/entities/user.entity";
 import {  Entity } from "typeorm";
 
 @Entity('category')

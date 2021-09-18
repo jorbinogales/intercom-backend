@@ -1,8 +1,8 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { GameEntity } from 'src/game/entities/game.entity';
-import { GameService } from 'src/game/game.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { GameEntity } from './../game/entities/game.entity';
+import { GameService } from './../game/game.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { createGameUserDto } from './dto/createGameUser.dto';
 import { GameUserEntity } from './entities/gameUser.entity';
 

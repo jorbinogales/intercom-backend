@@ -1,10 +1,10 @@
 import { BadRequestException, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { AchievementService } from 'src/achievement/achievement.service';
-import { AchievementEntity } from 'src/achievement/entities/achievement.entity';
-import { GameUserEntity } from 'src/game-user/entities/gameUser.entity';
-import { GameUserService } from 'src/game-user/game-user.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { AchievementService } from './../achievement/achievement.service';
+import { AchievementEntity } from './../achievement/entities/achievement.entity';
+import { GameUserEntity } from './../game-user/entities/gameUser.entity';
+import { GameUserService } from './../game-user/game-user.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { UnlockedAchievementDto } from './dto/unlockedAchievement.dto';
 import { AchievementUnlockedEntity } from './entities/achievement-unlocked.entity';
 

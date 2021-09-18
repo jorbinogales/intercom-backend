@@ -6,8 +6,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { GameService } from 'src/game/game.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { GameService } from './../game/game.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { CreateAchievementDto } from './dto/createAchievement.dto';
 import { UpdateAchievementDto } from './dto/updateAchievement.dto';
 import { AchievementEntity } from './entities/achievement.entity';

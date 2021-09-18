@@ -19,12 +19,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { hasRoles } from 'src/auth/decorators/role.decorator';
-import { GetUser } from 'src/auth/decorators/user.decorator';
-import { Roles } from 'src/auth/enum/roles';
-import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { hasRoles } from './../auth/decorators/role.decorator';
+import { GetUser } from './../auth/decorators/user.decorator';
+import { Roles } from './../auth/enum/roles';
+import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
+import { RolesGuard } from './../auth/guards/role.guard';
+import { UserEntity } from './../user/entities/user.entity';
 import { ValidatedFileConfig } from 'src/utils/config/validatedFile.config';
 import { CreateEventDto } from './dto/createEvent.dto';
 import { UpdateEventDto } from './dto/updateEvent.dto';

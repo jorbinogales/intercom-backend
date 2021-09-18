@@ -1,14 +1,14 @@
 import { ApiBody } from '@nestjs/swagger';
 
 export const UploadFileNestjs = (
-    image: string = 'image',
-    icon: string = 'icon',
-    screenshots: string = 'screenshots'): MethodDecorator => (
+    image?: string,
+    icon?: string,
+    screenshots?: string): MethodDecorator => (
     target: any,
     propertyKey,
     descritor: PropertyDescriptor,
 ) => {
-    ApiBody({
+        ApiBody({
         schema: {
             type: 'Object',
             properties: {

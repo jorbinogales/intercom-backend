@@ -1,9 +1,9 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { GameUserService } from 'src/game-user/game-user.service';
-import { LeaderboardService } from 'src/leaderboard/leaderboard.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { GameUserService } from './../game-user/game-user.service';
+import { LeaderboardService } from './../leaderboard/leaderboard.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { CreateScoreDto } from './dto/createScore.dto';
 
 @Injectable()

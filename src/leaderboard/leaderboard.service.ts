@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { UploadFileDto } from 'src/file/dto/uploadFile.dto';
-import { GameService } from 'src/game/game.service';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UploadFileDto } from './../file/dto/uploadFile.dto';
+import { GameService } from './../game/game.service';
+import { UserEntity } from './../user/entities/user.entity';
 import { CreateLeaderBoardDto } from './dto/createLeaderboard.dto';
 import { UpdateLeaderboardDto } from './dto/updateLeaderboard.dto';
 import { LeaderBoardEntity } from './entities/leaderboard.entity';

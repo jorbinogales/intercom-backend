@@ -1,11 +1,11 @@
 import { Body, Controller, Post, UseGuards, Param, Get } from '@nestjs/common';
 import { ApiBasicAuth, ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { hasRoles } from 'src/auth/decorators/role.decorator';
-import { GetUser } from 'src/auth/decorators/user.decorator';
-import { Roles } from 'src/auth/enum/roles';
-import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
-import { RolesGuard } from 'src/auth/guards/role.guard';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { hasRoles } from './../auth/decorators/role.decorator';
+import { GetUser } from './../auth/decorators/user.decorator';
+import { Roles } from './../auth/enum/roles';
+import { JwtAuthGuard } from './../auth/guards/jwtAuth.guard';
+import { RolesGuard } from './../auth/guards/role.guard';
+import { UserEntity } from './../user/entities/user.entity';
 import { AchievementUnlockedService } from './achievement-unlocked.service';
 import { UnlockedAchievementDto } from './dto/unlockedAchievement.dto';
 import { AchievementUnlockedEntity } from './entities/achievement-unlocked.entity';

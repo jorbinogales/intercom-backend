@@ -1,7 +1,7 @@
 import { Request } from '@nestjs/common';
 import { Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ApiBadGatewayResponse, ApiBasicAuth, ApiBearerAuth, ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from './../user/entities/user.entity';
 import { AuthService } from './auth.service';
 import { hasRoles } from './decorators/role.decorator';
 import { CreateUserDto } from './dto/createUser.dto';

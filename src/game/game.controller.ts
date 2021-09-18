@@ -20,6 +20,7 @@ import {
   ApiConsumes,
   ApiOperation,
   ApiTags,
+  ApiBody,
 } from '@nestjs/swagger';
 import { CreateGameDto } from './dto/createGame.dto';
 import { RolesGuard } from './../auth/guards/role.guard';
@@ -47,7 +48,6 @@ export class GameController {
   @Post('')
   @ApiBasicAuth('XYZ')
   @ApiBearerAuth()
-  @ApiConsumes('multipart/form-data')
   @ApiOperation({ summary: 'Create a game [ONLY DEV]' })
   @UseGuards(RolesGuard)
   @UseGuards(JwtAuthGuard)
@@ -62,7 +62,6 @@ export class GameController {
       ValidatedFileConfig,
     ),
   )
-  @UploadFileNestjs('image', 'icon', 'screenshots')
   async store(
     @Request() req: any,
     @Body() CreateGameDto: CreateGameDto,
@@ -85,7 +84,6 @@ export class GameController {
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number = 10,
     @Body() filtros: any,
   ): Promise<Pagination<GameEntity>> {
-    console.log(filtros);
     limit = limit > 100 ? 100 : limit;
     return await this.gameService.indexPaginate(user, page, limit, filtros);
   }
@@ -183,7 +181,6 @@ export class GameController {
       ValidatedFileConfig,
     ),
   )
-  @UploadFileNestjs('image')
   async update(
     @Param('id') id: number,
     @Body() UpdateGameDto: UpdateGameDto,

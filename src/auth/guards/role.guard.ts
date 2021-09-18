@@ -2,8 +2,8 @@ import { forwardRef, Inject } from '@nestjs/common';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { RoleEntity } from 'src/role/entities/role.entity';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { RoleEntity } from './../../role/entities/role.entity';
+import { UserEntity } from './../../user/entities/user.entity';
 import { AuthService } from '../auth.service';
 import { ROLES_KEY } from '../decorators/role.decorator';
 import { Roles } from '../enum/roles';
@@ -26,7 +26,6 @@ export class RolesGuard implements CanActivate {
       
     const request = context.switchToHttp().getRequest();
     const user: UserEntity = request.user;
-    console.log(user);
     const microservice: string = request.user.microservice;
 
     return this.authService.profile(1, microservice).then((user: UserEntity) => {

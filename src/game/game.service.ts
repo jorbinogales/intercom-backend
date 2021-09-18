@@ -6,8 +6,6 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { UploadFileDto } from 'src/file/dto/uploadFile.dto';
-import { FileService } from 'src/file/file.service';
 import { CategoryService } from './../category/category.service';
 import { UserEntity } from './../user/entities/user.entity';
 import { CreateGameDto } from './dto/createGame.dto';
@@ -118,7 +116,6 @@ export class GameService {
   async gameCategory(games: any): Promise<any> {
     const games_array: GameEntity[] = [];
     for (let game of games) {
-      console.log(game);
       const category_value = game.category_id;
       const category = await this.categoryService.get(category_value);
       game.category_value = category;

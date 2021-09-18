@@ -2,7 +2,7 @@ import { BadRequestException, Inject, Injectable, Logger, NotFoundException, Una
 import { ClientProxy } from '@nestjs/microservices';
 import { JwtService } from '@nestjs/jwt'
 import { CreateUserDto } from './dto/createUser.dto';
-import { UserEntity } from 'src/user/entities/user.entity';
+import { UserEntity } from './../user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +58,6 @@ export class AuthService {
     async AdminLogin(createUserDto: CreateUserDto): Promise<any>{
         const { id_azure } = createUserDto;
         const user = await this.validateUser(id_azure, 'MICRO-ADMIN');
-        console.log(user)
         if (!user) {
             await this.microAdmin.send({ cmd: 'admin_store' }, { createUserDto }).toPromise();
         }

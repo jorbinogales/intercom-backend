@@ -1,4 +1,4 @@
-import { GameUserEntity } from "src/game-user/entities/gameUser.entity";
+import { GameUserEntity } from "./../../game-user/entities/gameUser.entity";
 import { Entity } from "typeorm";
 import { AchievementEntity } from "../../achievement/entities/achievement.entity";
 import { UserEntity } from "../../user/entities/user.entity";
