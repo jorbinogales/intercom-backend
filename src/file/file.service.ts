@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { ClientProxy } from '@nestjs/microservices';
 import { join } from 'path';
+import { AuthService } from 'src/auth/auth.service';
 import { AchievementService } from './../achievement/achievement.service';
 import { EventService } from './../event/event.service';
 import { GameService } from './../game/game.service';
@@ -20,6 +21,7 @@ export class FileService {
         private readonly achievementService: AchievementService,
         private readonly leaderboardService: LeaderboardService,
         private readonly eventService: EventService,
+        private readonly auhtService: AuthService,
     ) { }
     
     /* STORE */
@@ -32,16 +34,19 @@ export class FileService {
         avatar?: string): Promise<any>{
         const { entity_name } = uploadFileDto;
         if (entity_name === FileModelName.GAME) {
-            return await this.addImage(uploadFileDto, user, image, icon, screenshots, DevAddImage.GAME);
+            return await this.addImage(uploadFileDto, user, image, icon, screenshots, null, DevAddImage.GAME);
         }
         if (entity_name === FileModelName.ACHIEVEMENT) {
-            return await this.addImage(uploadFileDto, user, null, icon, null, DevAddImage.ACHIEVEMENT );
+            return await this.addImage(uploadFileDto, user, null, icon, null, null, DevAddImage.ACHIEVEMENT );
         }
         if (entity_name === FileModelName.LEADERBOARD) {
-            return await this.addImage(uploadFileDto, user, null, icon, null, DevAddImage.LEADERBOARD );
+            return await this.addImage(uploadFileDto, user, null, icon, null, null, DevAddImage.LEADERBOARD );
         }
         if (entity_name === FileModelName.EVENT) {
-            return await this.addImage(uploadFileDto, user, null, icon, null, DevAddImage.EVENT );
+            return await this.addImage(uploadFileDto, user, null, icon, null, null, DevAddImage.EVENT );
+        }
+        if(entity_name === FileModelName.USER){
+            return await this.addImage(uploadFileDto, user, null, null, null, avatar, DevAddImage.USER);
         }
     }
     
@@ -64,6 +69,7 @@ export class FileService {
         image?: any,
         icon?: any,
         screenshots?: any[],
+        avatar?: any,
         dev?: DevAddImage,
     ): Promise<any>{
         const { entity_id } = uploadFileDto;
@@ -99,6 +105,11 @@ export class FileService {
                 { uploadFileDto, event, icon }
             ).toPromise();
         }
-        return response;
+        if (dev === DevAddImage.USER) {
+            response = await this.microDev.send(
+                { cmd: dev },
+                { uploadFileDto, user, avatar }
+            ).toPromise();
+        }
     }
 }

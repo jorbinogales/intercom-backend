@@ -103,6 +103,4 @@ export class LeaderboardService {
     return leaderboard;
   }
 
-  /* ADD IMAGE */
-  async addImage(uploadFileDto: UploadFileDto, icon: any) {}
 }

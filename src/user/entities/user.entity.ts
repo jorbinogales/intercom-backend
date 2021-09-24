@@ -4,7 +4,7 @@ import { PrimaryGeneratedColumn, Entity} from "typeorm";
 @Entity('user')
 export class UserEntity{
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
     id_azure: string;
     name: string;
     email: string;
