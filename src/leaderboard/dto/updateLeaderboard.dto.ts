@@ -16,7 +16,7 @@ export class UpdateLeaderboardDto {
     @IsString()
     @IsOptional()
     @MinLength(2)
-    @MaxLength(100)
+    @MaxLength(50)
     @ApiProperty({
         type: 'string',
         description: 'name of leaderboard',

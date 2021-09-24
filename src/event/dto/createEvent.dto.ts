@@ -12,7 +12,7 @@ export class CreateEventDto {
     @IsString()
     @IsNotEmpty()
     @MinLength(2)
-    @MaxLength(100)
+    @MaxLength(50)
     @ApiProperty({ type: 'string', description: 'name event', default: 'nombre del evento'})
     readonly name: string;
 
