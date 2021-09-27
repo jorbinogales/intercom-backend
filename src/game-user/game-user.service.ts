@@ -29,6 +29,7 @@ export class GameUserService {
         return await this.microDev.send({ cmd: 'gameuser_index' }, { user }).toPromise();
     }
 
+
     /* DELETE GAME USER */
     async delete(id: number, user: UserEntity): Promise<any>{
         const gameuser = await this.check(id, user);

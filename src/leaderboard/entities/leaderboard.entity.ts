@@ -9,7 +9,7 @@ export class LeaderBoardEntity{
 
     id: string;
     score: string;
-    game: GameEntity;
+    game_value: GameEntity;
     scores: ScoreEntity[];
     name: string;
     icon: string;
