@@ -16,10 +16,11 @@ export class ScoreService {
     
     /* CREATE A SCORE STORE */
     async store(createScoreDto: CreateScoreDto, user: UserEntity): Promise<any>{
-        const { leaderboard_id, user_id } = createScoreDto;
+        const { leaderboard_id, game_user_id } = createScoreDto;
         const leaderboard = await this.leadaerService.check(leaderboard_id, user);
-        const { game } = leaderboard;
-        const gameUser = await this.gameUserService.checkPlaying(game, user_id);
+        console.log(leaderboard);
+        const { game_value } = leaderboard;
+        const gameUser = await this.gameUserService.checkPlaying(game_value, game_user_id);
         if (!gameUser) {
             throw new BadRequestException(`This user is not playing this game`);
         }

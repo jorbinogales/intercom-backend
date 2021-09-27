@@ -9,14 +9,14 @@ export class CreateGameDto {
     @ApiProperty({ type: 'number', description: 'id category', default: 1})
     readonly category_id: number;
 
-    @IsString()
+    @IsString({ message: 'Nombre es requerido'})
     @IsNotEmpty()
     @MinLength(2)
     @MaxLength(50)
     @ApiProperty({ type: 'string', description: 'name category', default: 'Warcarft'})
     readonly title: string;
 
-    @IsString()
+    @IsString({ message: 'Descripcion es requerido'})
     @IsNotEmpty()
     @MinLength(10)
     @MaxLength(500)
@@ -38,12 +38,12 @@ export class CreateGameDto {
     @ApiProperty({ type: 'string', description: 'Url of oculos store', default: 'http://oculosstore.com/das152512'})
     readonly oculus_store: string;
 
-    @IsBoolean()
+    @IsBooleanString({ message: 'Estatus es requerido'})
     @IsOptional()
     @ApiProperty({ type: 'boolean', description: 'Game Status', default: "true" })
     readonly status: boolean;
 
-    @IsBoolean()
+    @IsBooleanString({ message: 'Estatus es requerido'})
     @IsOptional()
     @ApiProperty({ type: 'boolean', description: 'Game populity', default: "false" })
     readonly populity: boolean;
