@@ -106,10 +106,14 @@ export class FileService {
             ).toPromise();
         }
         if (dev === DevAddImage.USER) {
-            response = await this.microDev.send(
-                { cmd: dev },
-                { uploadFileDto, user, avatar }
-            ).toPromise();
+            const idUser: any = user;
+            const profile = await this.auhtService.profile(idUser, 'MICRO-DEV');
+            response = await this.microDev
+            .send({ cmd: dev }, { uploadFileDto, profile, avatar })
+            .toPromise();
+            // console.log(response);
+            await this.removeFiles(response.avatar_before);
         }
+        return response;
     }
 }
