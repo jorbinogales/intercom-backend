@@ -1,41 +1,34 @@
 import { Module } from '@nestjs/common';
-import { CategoryModule } from './category/category.module';
-import { GameModule } from './game/game.module';
 import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
-import { RoleModule } from './role/role.module';
-import { AchievementModule } from './achievement/achievement.module';
-import { AchievementUnlockedModule } from './achievement-unlocked/achievement-unlocked.module';
-import { GameUserModule } from './game-user/game-user.module';
-import { LeaderboardModule } from './leaderboard/leaderboard.module';
-import { ScoreModule } from './score/score.module';
-import { EventModule } from './event/event.module';
-import { EventPlayerModule } from './event-player/event-player.module';
 import { EasyconfigModule } from 'nestjs-easyconfig';
-import { ScreenshotsModule } from './screenshots/screenshots.module';
 import { FileModule } from './file/file.module';
 import { ConfigurationModule } from './configuration/config.module';
+import { UserModule } from './user/user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DatabaseConfigurations } from './utils/database/database';
+import { RoleModule } from './role/role.module';
+import { LawyerModule } from './lawyer/lawyer.module';
+import { PeopleModule } from './people/people.module';
+import { QuestionModule } from './question/question.module';
+import { AnsweringModule } from './answering/answering.module';
+import { MailModule } from './mail/mail.module';
 require('dotenv').config();
 
 @Module({
   imports: [
     EasyconfigModule.register({ path: `environment/.env.${process.env.NODE_ENV}`, safe: true }),
+    TypeOrmModule.forRootAsync(DatabaseConfigurations),
     ConfigurationModule,
-    CategoryModule,
-    GameModule,
     AuthModule,
+    FileModule,
     UserModule,
     RoleModule,
-    AchievementModule,
-    AchievementUnlockedModule,
-    GameUserModule,
-    LeaderboardModule,
-    ScoreModule,
-    EventModule,
-    EventPlayerModule,
-    ScreenshotsModule,
-    FileModule,
-  ]
+    LawyerModule,
+    PeopleModule,
+    QuestionModule,
+    AnsweringModule,
+    MailModule,
+  ],
     
 })
 export class AppModule {}

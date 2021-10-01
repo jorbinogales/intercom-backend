@@ -12,7 +12,7 @@ export class RoleEntity{
     @JoinColumn({ name: 'user_id'})
     user_id: UserEntity;
 
-    @Column({ type: 'enum', enum: Roles, default: 2 })
+    @Column({ type: 'enum', enum: Roles, default: Roles.Lawyer })
     role: Roles;
 
     @CreateDateColumn()

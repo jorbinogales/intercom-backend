@@ -1,24 +1,36 @@
-import { BadRequestException, Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt'
-import { CreateUserDto } from './dto/createUser.dto';
 import { UserEntity } from './../user/entities/user.entity';
+import { RegisterLawyerDto } from './dto/registerLawyer.dto';
+import { UserService } from 'src/user/user.service';
+import { LawyerService } from 'src/lawyer/lawyer.service';
+import { RoleService } from 'src/role/role.service';
+import { Roles } from './enum/roles';
 
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('MICRO-ADMIN') private microAdmin: ClientProxy,
-        @Inject('MICRO-DEV') private readonly microDev: ClientProxy,
         private readonly jwtService: JwtService,
+        private readonly userService: UserService,
+        private readonly lawyerService: LawyerService,
+        private readonly roleService: RoleService,
     ) { }
 
-    async validateUser(id_azure: string, microservice: string): Promise<UserEntity>{
-        let user: any;
-        if (microservice === 'MICRO-DEV') {
-            user = await this.microDev.send({ cmd: 'user_get' }, { id_azure }).toPromise();
-        } else {
-            user = await this.microAdmin.send({ cmd: 'admin_get' }, { id_azure }).toPromise();
-        }
+    async register(registerLawyerDto: RegisterLawyerDto): Promise<any>{
+        const user = await this.userService.store(registerLawyerDto)
+        await this.lawyerService.store(user, registerLawyerDto);
+        await this.roleService.store(user, Roles.Lawyer);
+        return await this.validateUser(user.id).then((userData) => {
+            const token = this.createToken(userData);
+            return {
+                statusCode: 200,
+                access_token: token,
+            }
+        }); 
+    }
+
+    async validateUser(id: number): Promise<UserEntity>{
+        const user = await this.userService.get(id);
         if (!user) {
             return null;
         }
@@ -26,49 +38,8 @@ export class AuthService {
     }
 
     
-    async profile(id: number, microservice: string): Promise<UserEntity>{
-        let user: UserEntity;
-        if (microservice === 'MICRO-DEV') {
-            user = await this.microDev.send({ cmd: 'user_get_id' }, { id }).toPromise();
-        } else {
-            user = await this.microAdmin.send({ cmd: 'admin_get_id' }, { id }).toPromise();
-        }
-        if (!user) {
-            throw new NotFoundException(`not found user with id ${id}`);
-        }
-        return user;
-    }
-
-    async login(createUserDto: CreateUserDto): Promise<any>{
-        const { id_azure } = createUserDto;
-        let user = await this.validateUser(id_azure, 'MICRO-DEV');
-        if (!user) {
-            user = await this.microDev.send({ cmd: 'user_store' }, { createUserDto }).toPromise();
-        }
-        return await this.validateUser(id_azure, 'MICRO-DEV').then((userData) => {
-            const Token = this.createToken(userData, 'MICRO-DEV');
-            return {
-                user,
-                access_token: Token,
-                statusCode: 200
-            }
-        }); 
-    }
-
-    async AdminLogin(createUserDto: CreateUserDto): Promise<any>{
-        const { id_azure } = createUserDto;
-        const user = await this.validateUser(id_azure, 'MICRO-ADMIN');
-        if (!user) {
-            await this.microAdmin.send({ cmd: 'admin_store' }, { createUserDto }).toPromise();
-        }
-        return await this.validateUser(id_azure, 'MICRO-ADMIN').then((userData) => {
-            const Token = this.createToken(userData, 'MICRO-ADMIN');
-            return {
-                user,
-                access_token: Token,
-                statusCode: 200
-            }
-        }); 
+    async profile(id: number): Promise<UserEntity>{
+        return await this.validateUser(id);
     }
 
     /* REFRESH TOKEN */
@@ -77,8 +48,8 @@ export class AuthService {
         if (!payload) {
             throw new UnauthorizedException;
         }
-       return await this.validateUser(payload.id_azure, payload.microservice).then((userData) => {
-            const Token = this.createToken(userData, payload.microservice);
+       return await this.validateUser(payload.id).then((userData) => {
+            const Token = this.createToken(userData);
             return {
                 userData,
                 access_token: Token,
@@ -93,8 +64,8 @@ export class AuthService {
         if (!payload) {
             throw new UnauthorizedException;
         }
-       return await this.validateUser(payload.id_azure, payload.microservice).then((userData) => {
-            const Token = this.createToken(userData, payload.microservice);
+       return await this.validateUser(payload.id).then((userData) => {
+            const Token = this.createToken(userData);
             return {
                 userData,
                 access_token: Token,
@@ -104,11 +75,11 @@ export class AuthService {
     }
 
   
-    createToken(userData: any, microservice: string) {
+    createToken(userData: any) {
         const payload = {
-            'id': userData.id,
-            'id_azure': userData.id_azure,
-            'microservice': microservice,
+            id: userData.id,
+            email: userData.email,
+            password: userData.password,
         };
         return this.jwtService.sign(payload);
     }

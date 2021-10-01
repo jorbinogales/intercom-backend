@@ -6,15 +6,19 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey:'agjalifuqwiougqlgqwlhgqwlhsa'
+            secretOrKey: 'hkjlghaskjghaskjhgaka',
+            idField: 'id',
+            usernameField: 'email',
+            passwordField: 'password',
         })
     }
     
     async validate(payload: any) {
+        console.log(payload);
         return {
-            'id': payload.id,
-            'id_azure': payload.id_azure,
-            'microservice': payload.microservice,
+            id: payload.id,
+            email: payload.email,
+            password: payload.password,
         }
     }
 }
