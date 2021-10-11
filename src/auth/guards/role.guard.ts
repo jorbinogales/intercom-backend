@@ -26,7 +26,6 @@ export class RolesGuard implements CanActivate {
       
     const request = context.switchToHttp().getRequest();
     const user: UserEntity = request.user;
-    console.log(user);
     return this.authService.profile(user.id).then((user: UserEntity) => {
         let hasPermission: boolean = false;
         let role: RoleEntity[] = user.roles;

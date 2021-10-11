@@ -8,7 +8,7 @@ export class QuestionEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => PeopleEntity, people => people.id)
+    @ManyToOne(() => PeopleEntity, people => people.id, { eager: true })
     @JoinColumn({ name: 'people_id'})
     people_id: PeopleEntity;
 

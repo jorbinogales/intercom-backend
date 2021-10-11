@@ -8,13 +8,13 @@ export class AnsweringEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => LawyerEntity, lawyer => lawyer.id)
+    @ManyToOne(() => LawyerEntity, lawyer => lawyer.id, { eager: true })
     @JoinColumn({ name: 'lawyer_id'})
-    lawyer_id: UserEntity;
+    lawyer_id: LawyerEntity;
 
     @ManyToOne(() => QuestionEntity, question => question.id)
     @JoinColumn({ name: 'question_id'})
-    question_id: UserEntity;
+    question_id: QuestionEntity;
 
     @Column({ name: 'text' , type: 'longtext',  nullable: false })
     text: string;

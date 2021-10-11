@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt'
 import { UserEntity } from './../user/entities/user.entity';
 import { RegisterLawyerDto } from './dto/registerLawyer.dto';
@@ -6,6 +6,7 @@ import { UserService } from 'src/user/user.service';
 import { LawyerService } from 'src/lawyer/lawyer.service';
 import { RoleService } from 'src/role/role.service';
 import { Roles } from './enum/roles';
+import { LoginLawyerDto } from './dto/loginLawyer.dto';
 
 @Injectable()
 export class AuthService {
@@ -29,6 +30,20 @@ export class AuthService {
         }); 
     }
 
+    /* LOGIN */
+    async login(loginLawyerDto: LoginLawyerDto): Promise<any>{
+        const user = await this.userService.login(loginLawyerDto);
+        if (!user) {
+            throw new NotFoundException('Usuario no registrado')
+        }
+        const token = this.createToken(user);
+        return {
+            statusCode: 200,
+            access_token: token,
+            user: user,
+        }
+    }
+
     async validateUser(id: number): Promise<UserEntity>{
         const user = await this.userService.get(id);
         if (!user) {
@@ -36,6 +51,7 @@ export class AuthService {
         }
         return user;
     }
+    
 
     
     async profile(id: number): Promise<UserEntity>{

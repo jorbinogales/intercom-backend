@@ -1,5 +1,6 @@
+import { AnsweringEntity } from "src/answering/entities/answering.entity";
 import { UserEntity } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('lawyer')
 export class LawyerEntity{
@@ -9,6 +10,9 @@ export class LawyerEntity{
     @OneToOne(() => UserEntity, user => user.id)
     @JoinColumn({ name: 'user_id'})
     user_id: UserEntity;
+
+    @OneToMany(() => AnsweringEntity, answerings => answerings.lawyer_id)
+    answerings: AnsweringEntity[];
 
     @Column({ name: 'name' , type: 'varchar', length: '255', nullable: true, default: 'Abogado' })
     name: string;

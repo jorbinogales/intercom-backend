@@ -4,8 +4,12 @@
   "projects": {
   },
   "compilerOptions": {
-    "assets": ["mail/templates/*"],
-    "watchAssets": true, 
+    "assets": [
+      { 
+        "include": "**/*.hbs",
+        "watchAssets": true 
+      }
+    ],
     "webpack": true
   }
 }

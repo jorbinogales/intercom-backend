@@ -18,6 +18,7 @@ export class PeopleService {
         }
         return {
             statusCode: 200,
+            people,
         }
     }
 

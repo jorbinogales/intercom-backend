@@ -8,8 +8,4 @@ export class CreateAnsweringDto{
     @IsNumber()
     @IsNotEmpty()
     question_id: number;
-
-    @IsNumber()
-    @IsNotEmpty()
-    lawyer_id: number;
 }

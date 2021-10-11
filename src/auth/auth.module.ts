@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategy/jwt.strategy';
@@ -12,8 +12,8 @@ import { RoleModule } from 'src/role/role.module';
 
 @Module({
   imports: [
+    forwardRef(() => LawyerModule),
     PassportModule,
-    LawyerModule,
     UserModule,
     RoleModule,
     JwtModule.registerAsync(JwtOptions)

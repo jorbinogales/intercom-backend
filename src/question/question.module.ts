@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'src/auth/auth.module';
+import { LawyerModule } from 'src/lawyer/lawyer.module';
 import { MailModule } from 'src/mail/mail.module';
 import { PeopleModule } from 'src/people/people.module';
 import { UserModule } from 'src/user/user.module';
@@ -9,6 +11,8 @@ import { questionRepository } from './repository/question.repository';
 
 @Module({
   imports: [
+    LawyerModule,
+    AuthModule,
     UserModule,
     MailModule,
     PeopleModule,

@@ -1,5 +1,7 @@
+import { AnsweringEntity } from "src/answering/entities/answering.entity";
+import { LawyerEntity } from "src/lawyer/entities/lawyer.entity";
 import { RoleEntity } from "src/role/entities/role.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('user')
 export class UserEntity{
@@ -14,6 +16,9 @@ export class UserEntity{
 
     @Column({ name: 'password', type: 'longtext' })
     password: string;
+
+    @OneToOne(() => LawyerEntity, lawyer => lawyer.user_id, { eager: true })
+    lawyer_id: LawyerEntity;
 
     @OneToMany(() => RoleEntity, role => role.user_id)
     roles: RoleEntity[];
