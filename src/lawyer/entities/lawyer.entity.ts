@@ -20,6 +20,9 @@ export class LawyerEntity{
     @Column({ name: 'birth', type: 'datetime', nullable: true})
     birth: Date;
 
+    @Column({ name: 'authorized', type: 'boolean', nullable: false, default: 0})
+    authorized: string;
+
     @Column({ name: 'picture', type: 'longtext', nullable: true})
     picture: string;
 
