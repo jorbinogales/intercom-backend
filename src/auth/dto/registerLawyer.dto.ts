@@ -11,5 +11,9 @@ export class RegisterLawyerDto {
     @IsNotEmpty()
     password: string;
 
+    @IsString()
+    @IsNotEmpty()
+    repeat_password: string;
+
 }
 

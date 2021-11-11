@@ -21,7 +21,6 @@ require('dotenv').config();
     UserModule,
     RoleModule,
     MailModule,
-    DespachoModule,
   ],
 })
 export class AppModule {}

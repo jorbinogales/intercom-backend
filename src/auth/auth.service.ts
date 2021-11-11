@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt'
 import { UserEntity } from './../user/entities/user.entity';
 import { RegisterLawyerDto } from './dto/registerLawyer.dto';
@@ -16,6 +16,12 @@ export class AuthService {
     ) { }
 
     async register(registerLawyerDto: RegisterLawyerDto): Promise<any>{
+        const { password, repeat_password } = registerLawyerDto;
+        
+        if(password != repeat_password){
+            throw new BadRequestException('El password no coincide');
+        }
+
         const user = await this.userService.store(registerLawyerDto);
         await this.roleService.store(user, Roles.USER);
         return await this.validateUser(user.id).then((userData) => {

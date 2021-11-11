@@ -22,9 +22,6 @@ export class UserEntity{
     @OneToMany(() => RoleEntity, role => role.user_id)
     roles: RoleEntity[];
 
-    @OneToMany(() => DespachoEntity, despacho => despacho.owner_id)
-    despacho: DespachoEntity[];
-
     @CreateDateColumn()
     created_at: Date;
 
