@@ -7,11 +7,8 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DatabaseConfigurations } from './utils/database/database';
 import { RoleModule } from './role/role.module';
-import { LawyerModule } from './lawyer/lawyer.module';
-import { PeopleModule } from './people/people.module';
-import { QuestionModule } from './question/question.module';
-import { AnsweringModule } from './answering/answering.module';
 import { MailModule } from './mail/mail.module';
+import { DespachoModule } from './despacho/despacho.module';
 require('dotenv').config();
 
 @Module({
@@ -23,12 +20,8 @@ require('dotenv').config();
     FileModule,
     UserModule,
     RoleModule,
-    LawyerModule,
-    PeopleModule,
-    QuestionModule,
-    AnsweringModule,
     MailModule,
+    DespachoModule,
   ],
-    
 })
 export class AppModule {}

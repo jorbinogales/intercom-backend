@@ -31,7 +31,7 @@ export class AuthController {
     @Get('profile')
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
-    @hasRoles(Roles.Lawyer)
+    @hasRoles(Roles.USER)
     async profile(
         @GetUser() user: number,
     ): Promise<any>{
@@ -43,7 +43,7 @@ export class AuthController {
     @Post('refresh')
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
-    @hasRoles(Roles.Lawyer)
+    @hasRoles(Roles.USER)
     async refresh(
         @Body() body: any,
     ): Promise<any>{

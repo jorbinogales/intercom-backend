@@ -6,13 +6,11 @@ import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 import { RolesGuard } from './guards/role.guard';
 import { JwtOptions } from './../utils/jwt/JwtOptions';
-import { LawyerModule } from 'src/lawyer/lawyer.module';
 import { UserModule } from 'src/user/user.module';
 import { RoleModule } from 'src/role/role.module';
 
 @Module({
   imports: [
-    forwardRef(() => LawyerModule),
     PassportModule,
     UserModule,
     RoleModule,

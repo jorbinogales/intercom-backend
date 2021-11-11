@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt'
 import { UserEntity } from './../user/entities/user.entity';
 import { RegisterLawyerDto } from './dto/registerLawyer.dto';
 import { UserService } from 'src/user/user.service';
-import { LawyerService } from 'src/lawyer/lawyer.service';
 import { RoleService } from 'src/role/role.service';
 import { Roles } from './enum/roles';
 import { LoginLawyerDto } from './dto/loginLawyer.dto';
@@ -13,18 +12,16 @@ export class AuthService {
     constructor(
         private readonly jwtService: JwtService,
         private readonly userService: UserService,
-        private readonly lawyerService: LawyerService,
         private readonly roleService: RoleService,
     ) { }
 
     async register(registerLawyerDto: RegisterLawyerDto): Promise<any>{
-        const user = await this.userService.store(registerLawyerDto)
-        await this.lawyerService.store(user, registerLawyerDto);
-        await this.roleService.store(user, Roles.Lawyer);
+        const user = await this.userService.store(registerLawyerDto);
+        await this.roleService.store(user, Roles.USER);
         return await this.validateUser(user.id).then((userData) => {
             const token = this.createToken(userData);
             return {
-                statusCode: 200,
+                statusCode: 201,
                 access_token: token,
             }
         }); 
@@ -38,7 +35,7 @@ export class AuthService {
         }
         const token = this.createToken(user);
         return {
-            statusCode: 200,
+            statusCode: 201,
             access_token: token,
             user: user,
         }
@@ -69,7 +66,7 @@ export class AuthService {
             return {
                 userData,
                 access_token: Token,
-                statusCode: 200
+                statusCode: 201
             }
         }); 
     }
@@ -85,7 +82,7 @@ export class AuthService {
             return {
                 userData,
                 access_token: Token,
-                statusCode: 200
+                statusCode: 201
             }
         }); 
     }

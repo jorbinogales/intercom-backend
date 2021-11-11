@@ -22,7 +22,7 @@ export class FileController {
     @ApiOperation({ summary: 'Upload Images' })
     @UseGuards(RolesGuard)
     @UseGuards(JwtAuthGuard)
-    @hasRoles(Roles.Lawyer)
+    @hasRoles(Roles.USER)
     @UseInterceptors(
         FileFieldsInterceptor(
             [ { name: 'image', maxCount: 1, },{ name: 'icon', maxCount: 1, }, { name: 'screenshots', maxCount: 5 }, { name: 'avatar', maxCount: 1},],

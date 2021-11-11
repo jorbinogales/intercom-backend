@@ -1,5 +1,4 @@
-import { AnsweringEntity } from "src/answering/entities/answering.entity";
-import { LawyerEntity } from "src/lawyer/entities/lawyer.entity";
+import { DespachoEntity } from "src/despacho/entities/despacho.entity";
 import { RoleEntity } from "src/role/entities/role.entity";
 import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -11,20 +10,20 @@ export class UserEntity{
     @Column({ name: 'email' , type: 'varchar', length: '255', nullable: false, unique: true})
     email: string;
 
-    @Column({ name: 'email_verefied_at', nullable: true })
-    email_verefied_at: string;
+    @Column({ name: 'email_verificado', type: 'timestamp', nullable: true })
+    email_verificado: Date; 
+
+    @Column({ name: 'picture', type: 'varchar', length: 255, nullable: true})
+    picture: string;
 
     @Column({ name: 'password', type: 'longtext' })
     password: string;
 
-    @OneToOne(() => LawyerEntity, lawyer => lawyer.user_id, { eager: true })
-    lawyer_id: LawyerEntity;
-
     @OneToMany(() => RoleEntity, role => role.user_id)
     roles: RoleEntity[];
 
-    @Column({ name: 'social_provider', nullable: true})
-    social_provider: string;
+    @OneToMany(() => DespachoEntity, despacho => despacho.owner_id)
+    despacho: DespachoEntity[];
 
     @CreateDateColumn()
     created_at: Date;

@@ -7,11 +7,10 @@ export class UserRepository extends Repository<UserEntity>{
 
     /* STORE */
     async store(registerLawyerDto: RegisterLawyerDto): Promise<any>{
-        const { email, password, provide } = registerLawyerDto;
+        const { email, password } = registerLawyerDto;
         const user = this.create({
             email: email,
             password: password,
-            social_provider: provide,
         })
         const resp = await this.save(user);
         return resp;

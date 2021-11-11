@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LoginLawyerDto } from 'src/auth/dto/loginLawyer.dto';
 import { RegisterLawyerDto } from 'src/auth/dto/registerLawyer.dto';
 import { MailService } from 'src/mail/mail.service';
+import { ForgotPasswordDto } from './dto/forgotPassword.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserRepository } from './repository/user.repository';
 
@@ -17,7 +18,10 @@ export class UserService {
     /* STORE */
     async store(registerLawyerDto: RegisterLawyerDto): Promise<any>{
         const { email } = registerLawyerDto;
-        await this.findByEmail(email);
+        const resp_email = await this.findByEmail(email);
+        if(resp_email){
+            throw new BadRequestException('El correo electronico ya existe');
+        }
         const user = await this._userRepository.store(registerLawyerDto);
         await this._mailService.sendRegisterInfo(user);
         return user;
@@ -39,7 +43,7 @@ export class UserService {
     async get(user_id: number): Promise<UserEntity>{
         return await this._userRepository.findOne({
             where: { id: user_id },
-            relations: ['roles', 'lawyer_id'],
+            relations: ['roles'],
         });
     }
 
@@ -49,8 +53,20 @@ export class UserService {
             where: { email: email },
         });
         if (user) {
-            throw new BadRequestException('El correo electronico ya existe');
+            return user;
         }
         return null;
+    }
+
+    /* FORGOT PASSWORD DTO */
+    async forgotPassword(forgotPasswordDto: ForgotPasswordDto): Promise<any>{
+        const { email } = forgotPasswordDto;
+        const resp_email = await this.findByEmail(email);
+        if(!resp_email){
+            throw new BadRequestException('No existe ningun usuario registrado con este correo');
+        }
+        return {
+            statusCode: 201,
+        }
     }
 }
